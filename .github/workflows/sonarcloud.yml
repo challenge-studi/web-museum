@@ -10,6 +10,8 @@ jobs:
     name: SonarQube
     runs-on: ubuntu-latest
     steps:
+      - name: Install Angular-CLI
+        run: npm install -g @angular/cli
       - name: Unit Test
         run: ng test --no-watch --browsers=ChromeHeadless --code-coverage
       - uses: actions/checkout@v4
