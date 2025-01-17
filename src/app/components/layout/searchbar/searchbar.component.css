@@ -1,0 +1,36 @@
+#searchbar {
+  display: flex;
+  background-color: white;
+  border-radius: 40px;
+  margin: 5vw auto;
+  width: 90vw;
+  max-width: 600px;
+  box-shadow: 3px 3px 10px -3px grey;
+  overflow: hidden;
+}
+
+input {
+  all: unset;
+  flex-grow: 1;
+  padding: 2vw 4vw;
+  font-size: 2vw;
+}
+
+button {
+  border: none;
+  margin: 0.5vw;
+  padding: 0.5vw;
+  border-radius: 40px;
+  background-color: rgb(205, 205, 255);
+  width: 5vw;
+  cursor: pointer;
+}
+
+button img {
+  max-width: 2vw;
+  max-height: 2vw;
+}
+
+button:hover {
+  background-color: rgb(179, 179, 255);
+}
