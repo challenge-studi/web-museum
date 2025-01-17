@@ -1,0 +1,6 @@
+{
+  "sonarlint.connectedMode.project": {
+    "connectionId": "challenge-studi",
+    "projectKey": "challenge-studi_web-museum"
+  }
+}
