@@ -1,9 +1,12 @@
 .footer {
   border-top: 1px solid #e9ecef;
+  background-color: #000;
+  color: #fff;
 }
 
 .footer h5 {
   font-weight: bold;
+  text-transform: uppercase;
 }
 
 .footer a {
@@ -13,4 +16,10 @@
 
 .footer a:hover {
   text-decoration: underline;
+}
+
+.vr {
+  border-left: 1px solid #dee2e6;
+  height: 100%;
+  margin: 0 auto;
 }
