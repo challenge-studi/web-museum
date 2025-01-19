@@ -1,6 +1,8 @@
 .header-container {
   height: 30%;
   background-color: #b9721a;
+}
+.decor {
   background: linear-gradient(
     135deg,
     #b9721a 54%,
