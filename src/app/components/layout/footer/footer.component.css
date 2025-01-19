@@ -23,3 +23,8 @@
   height: 100%;
   margin: 0 auto;
 }
+
+.icon {
+  max-width: 2vw;
+  max-height: 2vw;
+}
