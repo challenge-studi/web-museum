@@ -1,0 +1,51 @@
+section {
+  background-color: #f1d6aa;
+}
+
+.img {
+  margin-top: 2.7%;
+}
+
+.title-h1 {
+  height: 67.65%;
+  width: 66%;
+  margin-right: 30%;
+  padding-top: 15%;
+}
+
+.parag-1 {
+  margin-bottom: 10%;
+  font-size: 175%;
+}
+
+.h1 {
+  margin-bottom: 20%;
+  font-size: 500%;
+}
+
+.h5 {
+  font-size: 180%;
+}
+
+.details-expo {
+  width: 50%;
+}
+
+.date-expo {
+  color: #6e4b13;
+  font-size: 32px;
+}
+
+.title-expo p {
+  color: #6e4b13;
+  font-size: 48px;
+}
+
+.reserve {
+  background-color: #b9721a;
+  color: #f1d6aa;
+  height: 6%;
+  width: 8%;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px #333;
+}
