@@ -1,0 +1,53 @@
+section {
+  margin-top: 8%;
+  width: 100vw;
+  height: 50vh;
+}
+
+.bandeau {
+  background-color: #1e1e1e;
+  width: 97%;
+  height: 60%;
+}
+
+.img {
+  margin: 0.75% 1%;
+  height: 90%;
+  width: 25%;
+}
+
+.liseret {
+  height: 80%;
+  width: 0.2%;
+  background-color: #f1d6aa;
+  margin-top: 1%;
+  margin-left: 5%;
+}
+
+.img2 {
+  margin: 1.3% 0;
+  margin-left: 10%;
+  height: 91.5%;
+  width: 40%;
+}
+
+.div-text {
+  height: 90%;
+  width: 20%;
+  margin: 0.75% 1%;
+}
+.div-text2 {
+  height: 90%;
+  width: 25%;
+  margin: 0.75% 6%;
+}
+.text {
+  color: white;
+  text-align: center;
+  padding-top: 8%;
+}
+.text2 {
+  color: white;
+  text-align: center;
+  padding-top: 13%;
+}
