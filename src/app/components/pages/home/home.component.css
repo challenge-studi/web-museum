@@ -31,15 +31,6 @@ section {
   font-size: 48px;
 }
 
-.reserve {
-  background-color: #b9721a;
-  color: #f1d6aa;
-  height: 30px;
-  width: 100px;
-  border-radius: 5px;
-  box-shadow: 2px 2px 2px #333;
-}
-
 /* DEBUT : A PARTIR D'UNE TAILLE */
 @media (min-width: 992px) {
   .img {
