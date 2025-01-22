@@ -33,14 +33,14 @@ jobs:
             ${{ vars.DOCKERHUB_USERNAME }}/museum:dev-v-${{ github.run_number }}
 
   update:
-    name: Update the lastest version on the VPS
+    name: Update the latest version on the VPS
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: launch the update command on the VPS
-        uses: D3rHase/ssh-command-action@latest
+      - name: configure the private_key
+        uses: kielabokkie/ssh-key-and-known-hosts-action@v1
         with:
-          host: ${{ secrets.VPS_HOST }}
-          user: ${{ secrets.VPS_USER }}
-          private_key: ${{ secrets.VPS_PRIVATE_KEY }}
-          command: ~/museum/update.sh
+          ssh-host: ${{ secrets.VPS_HOST }}
+          ssh-private_key: ${{ secrets.VPS_PRIVATE_KEY }}
+      - name: update site on VPS
+        run: ssh ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} ~/museum/update.sh
