@@ -1,0 +1,27 @@
+.footer {
+  border-top: 1px solid #e9ecef;
+}
+
+.footer h5 {
+  font-weight: bold;
+}
+
+.footer a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.vr {
+  border-left: 1px solid #dee2e6;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.icon {
+  max-width: 2vw;
+  max-height: 2vw;
+}
