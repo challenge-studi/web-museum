@@ -2,7 +2,6 @@
   height: 30%;
   background-color: #b9721a;
 }
-
 .decor {
   background: linear-gradient(
     135deg,
@@ -39,7 +38,7 @@ a {
     #ffd700,
     #ffe44c,
     #ffef94,
-    #000000,
+    #000,
     #fff
   );
   background-size: 400% 400%;
