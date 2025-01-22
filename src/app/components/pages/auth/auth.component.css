@@ -1,0 +1,19 @@
+.auth-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 20px;
+}
+
+.form-container {
+  width: 45%;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #b9721a;
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}

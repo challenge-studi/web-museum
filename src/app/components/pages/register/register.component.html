@@ -1,0 +1,19 @@
+<form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="nom">Nom</label>
+    <input id="nom" formControlName="nom" type="text" />
+  </div>
+  <div>
+    <label for="prenom">Prénom</label>
+    <input id="prenom" formControlName="prenom" type="text" />
+  </div>
+  <div>
+    <label for="email">E-mail</label>
+    <input id="email" formControlName="email" type="email" />
+  </div>
+  <div>
+    <label for="motDePasse">Mot de passe</label>
+    <input id="motDePasse" formControlName="motDePasse" type="password" />
+  </div>
+  <button type="submit">Je m'inscris</button>
+</form>
