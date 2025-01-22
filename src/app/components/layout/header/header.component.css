@@ -21,6 +21,17 @@
 a {
   color: #f1d6aa;
 }
+
+.navbar-nav {
+  background: linear-gradient(
+    135deg,
+    #b9721a 47.5%,
+    #fcfbfb,
+    #000,
+    #f1d6aa,
+    #b9721a 58.5%
+  );
+}
 .highlight-effect:hover {
   background-image: linear-gradient(
     135deg,
@@ -53,4 +64,26 @@ a {
     width: 15%;
     height: auto;
   }
+}
+
+/* Menu burger */
+.navbar-toggler {
+  z-index: 11; /* Toujours au-dessus du contenu */
+}
+
+/* Menu burger déroulant */
+#navbarNav {
+  position: absolute; /* Positionnement pour superposition */
+  top: 100%; /* Juste sous le header */
+  left: 0;
+  right: 0;
+  background-color: #b9721a; /* Couleur de fond */
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(203, 19, 19, 0.1); /* Ombre pour un meilleur visuel */
+  display: none; /* Masquer par défaut */
+}
+
+/* Afficher le menu burger actif */
+#navbarNav.collapse.show {
+  display: block;
 }
