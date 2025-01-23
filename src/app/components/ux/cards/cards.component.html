@@ -2,7 +2,7 @@
   <div class="bandeau d-flex">
     <img src="images/papyrus.png" class="img img-fluid" alt="papyrus" />
     <div class="div-text">
-      <p class="text fs-5">Objet</p>
+      <p class="text fs-5">Object</p>
       <p class="text fs-5">Epoque</p>
       <p class="text fs-5">Règne du Pharaon</p>
     </div>
@@ -14,9 +14,17 @@
         alt="sceptre-ceremonial"
       />
       <div class="div-text2">
-        <p class="text2 fs-5">Objet</p>
-        <p class="text2 fs-5">Epoque</p>
-        <p class="text2 fs-5">Règne du Pharaon</p>
+        <p class="text2 fs-5">{{ dataCard().object }}</p>
+        <p class="text2 fs-5">{{ dataCard().epoque }}</p>
+        <p class="text2 fs-5">
+          @if (isEven()) {
+            c'est paire
+            <strong>Je suis fort</strong>
+          } @else {
+            c'est inpaire
+            <strong>Je suis faible</strong>
+          }
+        </p>
       </div>
     </div>
   </div>

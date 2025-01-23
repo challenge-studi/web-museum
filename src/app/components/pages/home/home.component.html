@@ -35,6 +35,14 @@
       <p class="text-uppercase fw-bold text-center">l'égypte ancienne</p>
     </div>
     <app-button></app-button>
+    <app-cards
+      [dataCard]="{ object: 'Sceptre', epoque: '-2030' }"
+      [isEven]="false"
+    />
+    <app-cards
+      [dataCard]="{ object: 'Papyrus', epoque: 'Egyptien' }"
+      [isEven]="true"
+    />
   </section>
 
   <section class="presentation"></section>

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import OeuvreInterface from '../../../models/OeuvreInterface';
 
 @Component({
   selector: 'app-cards',
@@ -6,4 +7,7 @@ import { Component } from '@angular/core';
   templateUrl: './cards.component.html',
   styleUrl: './cards.component.css',
 })
-export class CardsComponent {}
+export class CardsComponent {
+  dataCard = input<OeuvreInterface>({ object: 'Papyrus', epoque: 'Egytien' });
+  isEven = input<boolean>(true);
+}
