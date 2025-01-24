@@ -22,19 +22,25 @@
           class="navbar-nav text-uppercase w-100 d-flex justify-content-between fw-bold"
         >
           <li class="nav-item">
-            <a class="nav-link highlight-effect" href="#">accueil</a>
+            <a class="nav-link highlight-effect" [routerLink]="['']">accueil</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link highlight-effect" href="#">présentation</a>
+            <a class="nav-link highlight-effect" [routerLink]="['presentation']"
+              >présentation</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link highlight-effect" href="#">billeterie</a>
+            <a class="nav-link highlight-effect" [routerLink]="['billeterie']"
+              >billeterie</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link highlight-effect" href="#">vos billets</a>
+            <a class="nav-link highlight-effect" [routerLink]="['']"
+              >vos billets</a
+            >
           </li>
           <li class="nav-item connex-inscrip">
-            <a class="nav-link highlight-effect" href="#"
+            <a class="nav-link highlight-effect" [routerLink]="['auth']"
               >connexion / inscription</a
             >
           </li>
