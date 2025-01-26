@@ -4,9 +4,4 @@ export interface Artist {
   lastname: string;
   birthday: Date;
   death_date: Date;
-
-  getId(): number;
-  setId(id: number): void;
-  getName(): string;
-  setName(name: string): void;
 }
