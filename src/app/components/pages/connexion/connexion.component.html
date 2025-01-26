@@ -1,5 +1,12 @@
 <form [formGroup]="connexionForm" (ngSubmit)="onSubmit()">
   <div>
+    <strong>E-mail saisi :</strong> {{ connexionForm.get("email")?.value }}
+  </div>
+  <div>
+    <strong>Mot de passe saisi :</strong>
+    {{ connexionForm.get("motDePasse")?.value }}
+  </div>
+  <div>
     <label for="email">E-mail</label>
     <input id="email" formControlName="email" type="email" />
   </div>

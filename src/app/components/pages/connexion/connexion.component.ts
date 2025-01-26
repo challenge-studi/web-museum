@@ -24,7 +24,7 @@ export class ConnexionComponent {
 
   onSubmit() {
     if (this.connexionForm.valid) {
-      // Logique de connexion
+      // Logique de connexion avec this.connexionForm.get('email')?.value;
     }
   }
 }
