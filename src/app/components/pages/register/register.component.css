@@ -1,17 +1,28 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
 label {
   margin-bottom: 5px;
   color: white;
-}
-
-.label {
-  margin: auto;
+  font-size: 1rem;
 }
 
 input {
   margin-bottom: 10px;
-  padding: 5px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
+  font-size: 1rem;
 }
 
 .inscription-button {
@@ -30,6 +41,6 @@ input {
   transition: background-color 0.3s;
 }
 
-button:hover {
+.inscription-button:hover {
   background-color: #b9721a;
 }
