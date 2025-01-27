@@ -12,7 +12,6 @@ export class ButtonComponent {
   buttonCliked = output<void>();
 
   onClick() {
-    console.log('Boom');
     this.buttonCliked.emit();
   }
 }
