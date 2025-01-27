@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { ButtonComponent } from '../../ux/button/button.component';
 import {
   FormGroup,
   FormBuilder,
@@ -10,7 +11,7 @@ import User from '../../../models/UserInterface';
 
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, ButtonComponent, CommonModule],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })

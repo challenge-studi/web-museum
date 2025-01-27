@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ButtonComponent } from '../../ux/button/button.component';
 import {
   FormBuilder,
   FormGroup,
@@ -8,7 +9,7 @@ import {
 
 @Component({
   selector: 'app-connexion',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ButtonComponent],
   templateUrl: './connexion.component.html',
   styleUrl: './connexion.component.css',
 })

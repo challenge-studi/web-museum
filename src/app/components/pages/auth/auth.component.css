@@ -1,19 +1,43 @@
-.auth-container {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  padding: 20px;
+.main-title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 700;
+  text-align: center;
+  color: #6e4b13;
+  margin: 10% 0;
+}
+
+.form {
+  gap: 1%;
+  margin-bottom: 10%;
 }
 
 .form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 45%;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #b9721a;
 }
 
 .form-container h2 {
   text-align: center;
   margin-bottom: 20px;
+  color: white;
+  font-size: 40px;
+}
+
+.register-container {
+  width: 500px;
+  height: 746px;
+  background-color: #6e4b13;
+  border-radius: 10px;
+}
+
+.connexion-container {
+  width: 500px;
+  height: 746px;
+  background-color: #b9721a;
+  border-radius: 10px;
 }

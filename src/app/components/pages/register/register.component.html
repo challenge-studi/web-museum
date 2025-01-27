@@ -1,10 +1,12 @@
 <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="nom">Nom</label>
+    <br />
     <input id="nom" formControlName="nom" type="text" />
   </div>
   <div>
     <label for="prenom">Prénom</label>
+    <br />
     <input id="prenom" formControlName="prenom" type="text" />
   </div>
   <div>
@@ -23,7 +25,12 @@
       type="password"
     />
   </div>
-  <button type="submit">Je m'inscris</button>
+  <div>
+    <label for="motDePasse">Confirmer mot de passe</label>
+    <br />
+    <input id="motDePasse" formControlName="motDePasse" type="password" />
+  </div>
+  <app-button></app-button>
 </form>
 
 <div><strong>Nom saisi :</strong> {{ inscriptionForm.get("nom")?.value }}</div>
