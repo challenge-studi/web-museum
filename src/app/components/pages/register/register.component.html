@@ -32,28 +32,3 @@
   </div>
   <app-button></app-button>
 </form>
-
-<div><strong>Nom saisi :</strong> {{ inscriptionForm.get("nom")?.value }}</div>
-<div>
-  <strong>Prénom saisi :</strong> {{ inscriptionForm.get("prenom")?.value }}
-</div>
-<div>
-  <strong>E-mail saisi :</strong> {{ inscriptionForm.get("email")?.value }}
-</div>
-<div>
-  <strong>Mot de passe saisi :</strong>
-  {{ inscriptionForm.get("motDePasse")?.value }}
-</div>
-<div>
-  <strong>Date de naissance saisie :</strong>
-  {{ inscriptionForm.get("birthday")?.value }}
-</div>
-
-<h2>Utilisateurs enregistrés</h2>
-<ul>
-  <li *ngFor="let utilisateur of utilisateurs">
-    Nom: {{ utilisateur.nom }}, Prénom: {{ utilisateur.prenom }}, Email:
-    {{ utilisateur.email }}, Mot de passe: {{ utilisateur.motDePasse }}, Date de
-    naissance: {{ utilisateur.birthday }}
-  </li>
-</ul>
