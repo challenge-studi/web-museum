@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-button',
@@ -6,4 +6,13 @@ import { Component } from '@angular/core';
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
 })
-export class ButtonComponent {}
+export class ButtonComponent {
+  name = input('Click');
+  variant = input<'primary' | 'secondary'>('primary');
+  buttonCliked = output<void>();
+
+  onClick() {
+    console.log('Boom');
+    this.buttonCliked.emit();
+  }
+}

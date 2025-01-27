@@ -1,3 +1,9 @@
 <div class="d-flex justify-content-center">
-  <button class="reserve text-uppercase" type="button">réserver</button>
+  <button
+    class="app-button text-uppercase app-button--variant-{{ variant() }}"
+    type="button"
+    (click)="onClick()"
+  >
+    {{ name() }}
+  </button>
 </div>
