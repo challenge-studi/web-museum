@@ -19,4 +19,10 @@ describe('ButtonComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should emit buttonCliked when onClick is called', () => {
+    spyOn(component.buttonCliked, 'emit');
+    component.onClick();
+    expect(component.buttonCliked.emit).toHaveBeenCalled();
+  });
 });

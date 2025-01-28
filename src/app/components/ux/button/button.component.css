@@ -1,9 +1,18 @@
-.reserve {
-  background-color: #b9721a;
-  color: #f1d6aa;
+.app-button {
   height: 30px;
-  width: 100px;
+  min-width: 100px;
   border-radius: 5px;
   box-shadow: 2px 2px 2px #333;
   margin: 3% 0;
+  padding: 0 10%;
+}
+
+.app-button--variant-primary {
+  background-color: #f1d6aa;
+  color: #6e4b13;
+}
+
+.app-button--variant-secondary {
+  background-color: #b9721a;
+  color: #f1d6aa;
 }
