@@ -7,7 +7,7 @@ import { Component, input, output } from '@angular/core';
   styleUrl: './button.component.css',
 })
 export class ButtonComponent {
-  name = input('Click');
+  name = input('Réserver');
   variant = input<'primary' | 'secondary'>('primary');
   buttonCliked = output<void>();
 
