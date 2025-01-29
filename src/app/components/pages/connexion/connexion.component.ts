@@ -19,7 +19,7 @@ export class ConnexionComponent {
   constructor(private readonly fb: FormBuilder) {
     this.connexionForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      motDePasse: ['', [Validators.required]],
+      password: ['', [Validators.required]],
     });
   }
 

@@ -1,11 +1,11 @@
 <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
-    <label for="nom">Nom</label>
-    <input id="nom" formControlName="nom" type="text" />
+    <label for="lastname">Nom</label>
+    <input id="lastname" formControlName="lastname" type="text" />
   </div>
   <div class="form-group">
-    <label for="prenom">Prénom</label>
-    <input id="prenom" formControlName="prenom" type="text" />
+    <label for="firstname">Prénom</label>
+    <input id="firstname" formControlName="firstname" type="text" />
   </div>
   <div class="form-group">
     <label for="register-email">E-mail</label>
@@ -16,18 +16,14 @@
     <input id="birthday" formControlName="birthday" type="date" />
   </div>
   <div class="form-group">
-    <label for="register-motDePasse">Mot de passe</label>
-    <input
-      id="register-motDePasse"
-      formControlName="motDePasse"
-      type="password"
-    />
+    <label for="register-password">Mot de passe</label>
+    <input id="register-password" formControlName="password" type="password" />
   </div>
   <div class="form-group">
-    <label for="confirm-motDePasse">Confirmer mot de passe</label>
+    <label for="confirm-password">Confirmer mot de passe</label>
     <input
       id="confirm-motDePasse"
-      formControlName="motDePasse"
+      formControlName="confirmPassword"
       type="password"
     />
   </div>
