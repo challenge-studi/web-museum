@@ -9,7 +9,7 @@ import { tap } from 'rxjs';
 export class AuthService {
   private tokenJWT: string | undefined = undefined;
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   login(identifier: string, password: string) {
     const observable = this.http
@@ -24,8 +24,7 @@ export class AuthService {
             this.tokenJWT = response.jwt;
             console.log('Connexion Réussi');
           } else {
-            console.error("Erreur d'authentification");
-            //TODO: implémenter la logique
+            throw new Error('Login Invalid');
           }
         }),
       );

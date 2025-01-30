@@ -12,6 +12,33 @@ describe('AuthService', () => {
   let service: AuthService;
   let httpTesting: HttpTestingController;
 
+  const DATA_API = {
+    jwt: 'theSuperToken',
+    user: {
+      id: 1,
+      documentId: 'theDocumentId',
+      username: 'john.doe@example.com',
+      email: 'john.doe@example.com',
+      provider: 'local',
+      confirmed: true,
+      blocker: false,
+      birthday: '1970-01-01',
+      createdAt: '2025-01-29T16:08:20.855Z',
+      updatedAt: '2025-01-29T16:08:20.855Z',
+      publishedAt: '2025-01-29T16:08:20.699Z',
+    },
+  };
+
+  const DATA_BAD_PASSWORD = {
+    data: null,
+    error: {
+      status: 400,
+      name: 'ValidationError',
+      message: 'Invalid identifier or password',
+      details: {},
+    },
+  };
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [provideHttpClient(), provideHttpClientTesting()],
@@ -49,39 +76,40 @@ describe('AuthService', () => {
     });
 
     // mock the request
-    req.flush({
-      jwt: 'theSuperToken',
-      user: {
-        id: 1,
-        documentId: 'theDocumentId',
-        username: 'john',
-        email: 'john.doe@example.com',
-        provider: 'local',
-        confirmed: true,
-        blocker: false,
-        birthday: '1970-01-01',
-        createdAt: '2025-01-29T16:08:20.855Z',
-        updatedAt: '2025-01-29T16:08:20.855Z',
-        publishedAt: '2025-01-29T16:08:20.699Z',
-      },
+    req.flush(DATA_API);
+
+    expect(await responsePromise).toEqual(DATA_API);
+
+    httpTesting.verify();
+  });
+
+  it('wrong password should throw a error', async () => {
+    const response$ = service.login('admin', 'badPassword');
+
+    // subcripition to the `Observalbe`and create a `Promise` of the response
+    const responsePromise = firstValueFrom(response$);
+
+    const req = httpTesting.expectOne(
+      '/api/auth/local',
+      'test request login with bad password',
+    );
+
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({
+      identifier: 'admin',
+      password: 'badPassword',
     });
 
-    expect(await responsePromise).toEqual({
-      jwt: 'theSuperToken',
-      user: {
-        id: 1,
-        documentId: 'theDocumentId',
-        username: 'john',
-        email: 'john.doe@example.com',
-        provider: 'local',
-        confirmed: true,
-        blocker: false,
-        birthday: '1970-01-01',
-        createdAt: '2025-01-29T16:08:20.855Z',
-        updatedAt: '2025-01-29T16:08:20.855Z',
-        publishedAt: '2025-01-29T16:08:20.699Z',
-      },
-    });
+    // mock the request
+    req.flush(DATA_BAD_PASSWORD);
+
+    //expect(await responsePromise).toEqual(DATA_API);
+
+    // Chat GPT complete ici, et pas de connnerie
+    //responsePromise.catch(error => expect(error).toBe("Login Invalid"));
+    responsePromise.catch((error) =>
+      expect(error.message).toBe('Login Invalid'),
+    );
 
     httpTesting.verify();
   });
@@ -116,39 +144,9 @@ describe('AuthService', () => {
     });
 
     // mock the request
-    req.flush({
-      jwt: 'theSuperToken',
-      user: {
-        id: 1,
-        documentId: 'theDocumentId',
-        username: 'john.doe@example.com',
-        email: 'john.doe@example.com',
-        provider: 'local',
-        confirmed: true,
-        blocker: false,
-        birthday: '1970-01-01',
-        createdAt: '2025-01-29T16:08:20.855Z',
-        updatedAt: '2025-01-29T16:08:20.855Z',
-        publishedAt: '2025-01-29T16:08:20.699Z',
-      },
-    });
+    req.flush(DATA_API);
 
-    expect(await responsePromise).toEqual({
-      jwt: 'theSuperToken',
-      user: {
-        id: 1,
-        documentId: 'theDocumentId',
-        username: 'john.doe@example.com',
-        email: 'john.doe@example.com',
-        provider: 'local',
-        confirmed: true,
-        blocker: false,
-        birthday: '1970-01-01',
-        createdAt: '2025-01-29T16:08:20.855Z',
-        updatedAt: '2025-01-29T16:08:20.855Z',
-        publishedAt: '2025-01-29T16:08:20.699Z',
-      },
-    });
+    expect(await responsePromise).toEqual(DATA_API);
     httpTesting.verify();
   });
 });
