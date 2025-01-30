@@ -18,7 +18,7 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class RegisterComponent {
   inscriptionForm: FormGroup;
-  utilisateurs: User[] = [];
+  utilisateurs: any[] = [];
 
   constructor(private readonly fb: FormBuilder) {
     this.inscriptionForm = this.fb.group({
@@ -37,12 +37,15 @@ export class RegisterComponent {
       const firstname = this.inscriptionForm.get('firstname')?.value;
       const email = this.inscriptionForm.get('email')?.value;
       const password = this.inscriptionForm.get('password')?.value;
+      const confirmPassword =
+        this.inscriptionForm.get('confirmPassword')?.value;
       const birthday = this.inscriptionForm.get('birthday')?.value;
       this.utilisateurs.push({
         lastname,
         firstname,
         email,
         password,
+        confirmPassword,
         birthday,
       });
       this.inscriptionForm.reset();
