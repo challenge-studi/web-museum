@@ -14,8 +14,5 @@ export const baseUrlInterceptor: HttpInterceptorFn = (req, next) => {
     url: req.url.startsWith('http') ? req.url : `${baseUrl}${req.url}`,
   });
 
-  //DEBUG: juste pour sniffer le code
-  console.log(`requete HTTP:  ${newReq}`);
-
   return next(newReq);
 };
