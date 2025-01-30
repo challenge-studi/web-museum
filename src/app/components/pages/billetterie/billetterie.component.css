@@ -43,27 +43,3 @@ h1 {
   color: #f1d6aa;
   margin-top: 0.5%;
 }
-
-.visite-guidee {
-  color: #f1d6aa;
-}
-
-.checkbox {
-  border: 1px solid #000;
-  margin-left: 75%;
-  padding-top: 5%;
-}
-.champs {
-  height: 4vh;
-  width: 2vw;
-  margin-left: 20%;
-}
-
-.total {
-  background-color: #6e4b13;
-  width: 80vw;
-  height: 40vh;
-  border-radius: 10px;
-  margin-top: 1%;
-  margin-bottom: 10%;
-}
