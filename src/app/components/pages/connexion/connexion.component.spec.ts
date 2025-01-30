@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ConnexionComponent } from './connexion.component';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('ConnexionComponent', () => {
   let component: ConnexionComponent;
@@ -9,6 +10,7 @@ describe('ConnexionComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, ConnexionComponent],
+      providers: [provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ConnexionComponent);
@@ -24,7 +26,7 @@ describe('ConnexionComponent', () => {
     const form = component.connexionForm;
     expect(form.value).toEqual({
       email: '',
-      motDePasse: '',
+      password: '',
     });
   });
 
@@ -35,7 +37,7 @@ describe('ConnexionComponent', () => {
   it('should validate the form as valid when all fields are filled', () => {
     component.connexionForm.setValue({
       email: 'john.doe@example.com',
-      motDePasse: 'password123',
+      password: 'password123',
     });
 
     expect(component.connexionForm.valid).toBeTrue();
@@ -46,7 +48,7 @@ describe('ConnexionComponent', () => {
 
     component.connexionForm.setValue({
       email: 'john.doe@example.com',
-      motDePasse: 'password123',
+      password: 'password123',
     });
 
     const form = component.connexionForm;

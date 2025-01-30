@@ -8,6 +8,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import User from '../../../models/UserInterface';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -17,26 +18,36 @@ import User from '../../../models/UserInterface';
 })
 export class RegisterComponent {
   inscriptionForm: FormGroup;
-  utilisateurs: User[] = [];
+  utilisateurs: any[] = [];
 
   constructor(private readonly fb: FormBuilder) {
     this.inscriptionForm = this.fb.group({
-      nom: ['', [Validators.required]],
-      prenom: ['', [Validators.required]],
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      motDePasse: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
       birthday: ['', [Validators.required]],
     });
   }
 
   onSubmit() {
     if (this.inscriptionForm.valid) {
-      const nom = this.inscriptionForm.get('nom')?.value;
-      const prenom = this.inscriptionForm.get('prenom')?.value;
+      const lastname = this.inscriptionForm.get('lastname')?.value;
+      const firstname = this.inscriptionForm.get('firstname')?.value;
       const email = this.inscriptionForm.get('email')?.value;
-      const motDePasse = this.inscriptionForm.get('motDePasse')?.value;
+      const password = this.inscriptionForm.get('password')?.value;
+      const confirmPassword =
+        this.inscriptionForm.get('confirmPassword')?.value;
       const birthday = this.inscriptionForm.get('birthday')?.value;
-      this.utilisateurs.push({ nom, prenom, email, motDePasse, birthday });
+      this.utilisateurs.push({
+        lastname,
+        firstname,
+        email,
+        password,
+        confirmPassword,
+        birthday,
+      });
       this.inscriptionForm.reset();
     }
   }
