@@ -10,16 +10,13 @@
 .select-ticket {
   height: 4vh;
   width: 2vw;
-  margin-bottom: 0%;
+  margin: 0% 10% 0 15%;
 }
 .component-price {
   margin-bottom: 10%;
 }
-.less {
-  padding-right: 12%;
-  text-decoration: none;
-}
+.less,
 .more {
-  padding-left: 10%;
   text-decoration: none;
+  cursor: pointer;
 }

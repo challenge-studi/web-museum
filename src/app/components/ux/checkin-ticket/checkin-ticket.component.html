@@ -2,12 +2,15 @@
   <div class="price-line">
     <div class="component-price d-flex justify-content-between">
       <div>
-        <p class="text fs-5">Adulte</p>
+        <p class="text fs-6">
+          {{ ticketType().tickets_type }} ( {{ ticketType().price }}€ prix
+          unitaire )
+        </p>
       </div>
       <div class="d-flex">
-        <a class="less" href=""><p class="fw-bold text-white fs-5">-</p></a>
-        <input class="select-ticket" type="text" />
-        <a class="more" href=""><p class="fw-bold text-white fs-5">+</p></a>
+        <div class="less fw-bold text-white fs-6" (click)="decrement()">-</div>
+        <input class="select-ticket" type="text" [value]="count" />
+        <div class="more fw-bold text-white fs-6" (click)="increment()">+</div>
       </div>
     </div>
   </div>

@@ -11,6 +11,11 @@
     <div class="compo-commande d-flex justify-content-center">
       <div class="div-tarifs">
         <h5 class="h5 text-center text-uppercase fw-bold">tarifs</h5>
+        @for (price of listPrice; track price.id) {
+          <app-checkin-ticket [ticketType]="price" />
+        } @empty {
+          <div>Nous n'avons pas de billet a vous proposé</div>
+        }
       </div>
       <div class="liseret"></div>
       <div class="div-visite">
@@ -19,6 +24,8 @@
     </div>
   </div>
   <div class="d-flex justify-content-center">
-    <div class="total"><app-button></app-button></div>
+    <div class="total">
+      <app-button name="Je valide ma commande" variant="secondary" />
+    </div>
   </div>
 </section>
