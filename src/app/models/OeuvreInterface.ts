@@ -6,8 +6,4 @@ export interface Oeuvre {
   description: string;
   type: string; // painting, sculpture, etc.
   expo_id: number;
-
-  getTitle(): string;
-  getYear(): number;
-  setDescription(description: string): void;
 }

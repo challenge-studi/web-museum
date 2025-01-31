@@ -1,0 +1,23 @@
+<div
+  [ngClass]="[
+    'card-container',
+    layout === 'bottom' ? 'image-bottom' : 'image-top',
+  ]"
+>
+  <img
+    *ngIf="imageUrl"
+    [src]="imageUrl"
+    class="card-image"
+    alt="Exposition Illustration"
+  />
+  <div class="card-content">
+    <div class="card-header text-white">{{ exposition?.name }}</div>
+    <div class="card-body">
+      <h5 class="card-title">{{ exposition?.description }}</h5>
+      <p class="card-text">
+        Du {{ exposition?.departure_date | date: "dd/MM/yyyy" }} au
+        {{ exposition?.end_date | date: "dd/MM/yyyy" }}
+      </p>
+    </div>
+  </div>
+</div>
