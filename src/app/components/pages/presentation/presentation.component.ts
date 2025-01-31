@@ -51,6 +51,4 @@ export class PresentationComponent {
     'images/sculpture.jpg',
     'images/artnumerique.jpg',
   ];
-
-  layouts: string[] = ['top', 'bottom', 'top', 'bottom'];
 }

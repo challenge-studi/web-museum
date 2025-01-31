@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './expo.component.css',
 })
 export class ExpoComponent {
-  dataCard = input<Exposition>();
-  imageUrl = input<string>();
-  layout = input<string>();
+  dataExpoCard = input<Exposition>();
+  imageUrl = input<string>('imageUrl is required');
+  layout = input<string>('top');
 }

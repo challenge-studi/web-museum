@@ -5,9 +5,9 @@
       *ngFor="let exposition of expositions; let i = index"
     >
       <app-expo
-        [dataCard]="exposition"
+        [dataExpoCard]="exposition"
         [imageUrl]="imageUrls[i]"
-        [layout]="layouts[i]"
+        [layout]="i % 2 === 0 ? 'top'"
       ></app-expo>
     </div>
   </div>
