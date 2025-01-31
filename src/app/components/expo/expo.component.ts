@@ -11,4 +11,5 @@ import { CommonModule } from '@angular/common';
 export class ExpoComponent {
   dataCard = input<Exposition>();
   imageUrl = input<string>();
+  layout = input<string>();
 }

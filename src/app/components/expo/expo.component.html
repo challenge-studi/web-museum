@@ -1,11 +1,23 @@
-<div class="card bg-dark text-light">
-  <img [src]="imageUrl()" class="card-img-top" alt="Exposition Image" />
-  <div class="card-header text-warning">{{ dataCard()?.name }}</div>
-  <div class="card-body">
-    <h5 class="card-title">{{ dataCard()?.description }}</h5>
-    <p class="card-text">
-      Date de début: {{ dataCard()?.departure_date | date }}
-    </p>
-    <p class="card-text">Date de fin: {{ dataCard()?.end_date | date }}</p>
+<div
+  [ngClass]="[
+    'card-container',
+    layout() === 'bottom' ? 'image-bottom' : 'image-top',
+  ]"
+>
+  <img
+    *ngIf="imageUrl()"
+    [src]="imageUrl()"
+    class="card-image"
+    alt="Exposition Illustration"
+  />
+  <div class="card-content">
+    <div class="card-header text-white">{{ dataCard()?.name }}</div>
+    <div class="card-body">
+      <h5 class="card-title">{{ dataCard()?.description }}</h5>
+      <p class="card-text">
+        Du {{ dataCard()?.departure_date | date: "dd/MM/yyyy" }} au
+        {{ dataCard()?.end_date | date: "dd/MM/yyyy" }}
+      </p>
+    </div>
   </div>
 </div>

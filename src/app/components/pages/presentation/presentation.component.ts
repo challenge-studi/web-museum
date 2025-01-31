@@ -46,9 +46,11 @@ export class PresentationComponent {
   ];
 
   imageUrls: string[] = [
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
+    'images/egypte.jpg',
+    'images/picasso.jpg',
+    'images/sculpture.jpg',
+    'images/artnumerique.jpg',
   ];
+
+  layouts: string[] = ['top', 'bottom', 'top', 'bottom'];
 }

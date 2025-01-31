@@ -4,7 +4,11 @@
       class="col-md-6 card-container"
       *ngFor="let exposition of expositions; let i = index"
     >
-      <app-expo [dataCard]="exposition" [imageUrl]="imageUrls[i]"></app-expo>
+      <app-expo
+        [dataCard]="exposition"
+        [imageUrl]="imageUrls[i]"
+        [layout]="layouts[i]"
+      ></app-expo>
     </div>
   </div>
 </div>
