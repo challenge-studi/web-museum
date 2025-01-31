@@ -30,7 +30,7 @@ jobs:
           push: true
           tags: |
             ${{ vars.DOCKERHUB_USERNAME }}/museum:dev-latest
-            ${{ vars.DOCKERHUB_USERNAME }}/museum:dev-v-${{ github.run_number }}
+            ${{ vars.DOCKERHUB_USERNAME }}/museum:dev-v${{ github.run_number }}
 
   update:
     name: Update the latest version on the VPS

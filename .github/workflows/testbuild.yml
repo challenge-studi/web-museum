@@ -1,0 +1,18 @@
+name: TestBuild
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  testbuild:
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+      - name: Install Angular-CLI
+        run: npm install -g @angular/cli
+      - name: Install the dependencies of project
+        run: npm install
+      - name: Test build
+        run: ng build
