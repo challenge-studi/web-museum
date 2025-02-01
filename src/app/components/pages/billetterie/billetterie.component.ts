@@ -17,18 +17,18 @@ export class BilletterieComponent {
     this.listPrice.push(
       {
         id: 0,
-        tickets_type: 'MiniMoy',
-        price: 619,
+        tickets_type: 'Adulte',
+        price: 20,
       },
       {
         id: 1,
-        tickets_type: 'Baby',
-        price: 1,
+        tickets_type: 'Enfant - de 16 ans',
+        price: 15,
       },
       {
         id: 2,
-        tickets_type: 'Children',
-        price: 69,
+        tickets_type: 'Enfant - de 6 ans',
+        price: 0,
       },
     );
   }
