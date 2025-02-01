@@ -1,23 +1,17 @@
 import { Injectable } from '@angular/core';
 import User from '../models/UserInterface';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private tokenJWT: string | undefined = undefined;
-  public observableTest$;
+
   public connected$;
 
   constructor(private readonly http: HttpClient) {
-    this.observableTest$ = new Observable<boolean>((subscriber) => {
-      subscriber.next(false);
-      subscriber.next(true);
-      subscriber.next(false);
-      subscriber.next(true);
-    });
     this.connected$ = new BehaviorSubject(false);
   }
 
@@ -30,7 +24,7 @@ export class AuthService {
       .pipe(
         tap((response) => {
           if ('jwt' in response && typeof response.jwt === 'string') {
-            // Connexion Réussi:
+            // Connexion Réussie:
             this.tokenJWT = response.jwt;
             console.log('Connexion Réussi');
             this.connected$.next(true);
@@ -45,6 +39,7 @@ export class AuthService {
 
   logout() {
     this.tokenJWT = undefined;
+    localStorage.removeItem('jwt');
     this.connected$.next(false);
 
     //TODO suppresion du localStorage ou du cookie et crée et mise a jour de observable User
@@ -66,6 +61,19 @@ export class AuthService {
 
   getTokenJwt() {
     return this.tokenJWT;
+  }
+
+  saveToken() {
+    if (this.tokenJWT) {
+      localStorage.setItem('jwt', this.tokenJWT);
+    }
+  }
+
+  loadToken() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      this.tokenJWT = token;
+    }
   }
 
   //TODO: implémenter un Observable user

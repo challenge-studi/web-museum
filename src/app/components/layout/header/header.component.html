@@ -39,10 +39,17 @@
               >vos billets</a
             >
           </li>
+
           <li class="nav-item connex-inscrip">
-            <a class="nav-link highlight-effect" [routerLink]="['auth']"
-              >connexion / inscription</a
-            >
+            @if (connected$ | async; as connected) {
+              <button class="nav-link highlight-effect" (click)="auth.logout()">
+                se déconnecter
+              </button>
+            } @else {
+              <a class="nav-link highlight-effect" [routerLink]="['auth']"
+                >connexion / inscription</a
+              >
+            }
           </li>
         </ul>
       </div>
