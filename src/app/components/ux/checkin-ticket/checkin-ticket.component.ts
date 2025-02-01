@@ -11,7 +11,11 @@ export class CheckinTicketComponent {
   count = 0;
   onValueChanged = output<{ id: number; count: number }>();
 
-  ticketType = input.required<Price>();
+  ticketType = input<Price>({
+    id: 0,
+    tickets_type: 'Adulte',
+    price: 20,
+  });
 
   increment() {
     this.count += 1;
