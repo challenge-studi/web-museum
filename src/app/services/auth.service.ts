@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import User from '../models/UserInterface';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 type ResponseApiLogin = {
   jwt: string;
@@ -21,16 +21,9 @@ type ResponseApiLogin = {
 export class AuthService {
   private tokenJWT: string | undefined = undefined;
   private user: User | undefined = undefined;
-  public observableTest$;
   public connected$;
 
   constructor(private readonly http: HttpClient) {
-    this.observableTest$ = new Observable<boolean>((subscriber) => {
-      subscriber.next(false);
-      subscriber.next(true);
-      subscriber.next(false);
-      subscriber.next(true);
-    });
     this.connected$ = new BehaviorSubject(false);
   }
 
@@ -66,6 +59,7 @@ export class AuthService {
   logout() {
     this.tokenJWT = undefined;
     this.user = undefined;
+    localStorage.removeItem('jwt');
     this.connected$.next(false);
 
     //TODO suppresion du localStorage ou du cookie et crée et mise a jour de observable User
@@ -102,4 +96,18 @@ export class AuthService {
       return true;
     } else return false;
   }
+  saveToken() {
+    if (this.tokenJWT) {
+      localStorage.setItem('jwt', this.tokenJWT);
+    }
+  }
+
+  loadToken() {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      this.tokenJWT = token;
+    }
+  }
+
+  //TODO: implémenter un Observable user
 }
