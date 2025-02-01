@@ -1,15 +1,25 @@
 import { Injectable } from '@angular/core';
 import User from '../models/UserInterface';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private tokenJWT: string | undefined = undefined;
+  public observableTest$;
+  public connected$;
 
-  constructor(private readonly http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {
+    this.observableTest$ = new Observable<boolean>((subscriber) => {
+      subscriber.next(false);
+      subscriber.next(true);
+      subscriber.next(false);
+      subscriber.next(true);
+    });
+    this.connected$ = new BehaviorSubject(false);
+  }
 
   login(identifier: string, password: string) {
     const observable = this.http
@@ -23,6 +33,7 @@ export class AuthService {
             // Connexion Réussi:
             this.tokenJWT = response.jwt;
             console.log('Connexion Réussi');
+            this.connected$.next(true);
           } else {
             throw new Error('Login Invalid');
           }
@@ -34,6 +45,7 @@ export class AuthService {
 
   logout() {
     this.tokenJWT = undefined;
+    this.connected$.next(false);
 
     //TODO suppresion du localStorage ou du cookie et crée et mise a jour de observable User
   }
