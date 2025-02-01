@@ -1,0 +1,22 @@
+.price-line {
+  color: white;
+  height: 5%;
+  width: 100%;
+  padding: 0 6% 0 4%;
+}
+.text {
+  padding-top: 5%;
+}
+.select-ticket {
+  height: 4vh;
+  width: 4vw;
+  margin: 0% 10% 0 15%;
+}
+.component-price {
+  margin-bottom: 10%;
+}
+.less,
+.more {
+  text-decoration: none;
+  cursor: pointer;
+}

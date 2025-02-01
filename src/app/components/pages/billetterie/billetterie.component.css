@@ -1,3 +1,65 @@
-p {
-  font-size: 18px;
+h1 {
+  color: #6e4b13;
+  margin-top: 10%;
+}
+.bandeau {
+  width: 80vw;
+  height: 12vh;
+  background-color: #1e1e1e;
+  margin-top: 5%;
+  border-radius: 10px;
+}
+
+.h2 {
+  color: #fff;
+  padding-bottom: 5%;
+}
+
+.compo-commande {
+  background-color: #b9721a;
+  height: 90vh;
+  width: 80vw;
+  margin-top: 1%;
+  border-radius: 10px;
+}
+
+.liseret {
+  height: 85vh;
+  width: 0.5vw;
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  margin-top: 1.55%;
+}
+
+.div-tarifs,
+.div-visite {
+  background-color: #b9721a;
+  height: 80vh;
+  width: 45vw;
+  border-radius: 10px;
+}
+
+.h5 {
+  color: #f1d6aa;
+  margin-top: 0.5%;
+}
+
+.component-price {
+  margin-bottom: 10%;
+}
+.less {
+  padding-right: 12%;
+  text-decoration: none;
+}
+.more {
+  padding-left: 10%;
+  text-decoration: none;
+}
+.total {
+  width: 80vw;
+  height: 20vh;
+  background-color: #6e4b13;
+  border-radius: 10px;
+  margin-top: 1%;
+  margin-bottom: 3%;
 }
