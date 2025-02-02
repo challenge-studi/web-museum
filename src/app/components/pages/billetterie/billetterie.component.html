@@ -12,11 +12,20 @@
       <div class="div-tarifs">
         <h5 class="h5 text-center text-uppercase fw-bold">tarifs</h5>
         @for (price of listPrice; track price.id) {
-          <app-checkin-ticket [ticketType]="price" />
+          <app-checkin-ticket
+            (onValueChanged)="updateListPrice($event.id, $event.count)"
+            [ticketType]="price"
+          />
         } @empty {
-          <div>Nous n'avons pas de billet a vous proposé</div>
+          <div>Nous n'avons pas de billet a vous proposer</div>
         }
+        <div class="h5 text-center text-uppercase fw-bold">Prix total</div>
+        <div class="h5 text-center text-uppercase fw-bold">
+          {{ totalPrice }}€
+        </div>
+        <button (click)="test()">totaltest :</button>
       </div>
+
       <div class="liseret"></div>
       <div class="div-visite">
         <h5 class="h5 text-center text-uppercase fw-bold">visite guidée</h5>
