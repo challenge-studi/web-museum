@@ -80,6 +80,10 @@ export class AuthService {
     return this.user;
   }
 
+  loadUserFromApi() {
+    //TODO: implémenter la méthode pour récuperer user depuis API si token déja valide. /users/me
+  }
+
   isResponseApiValide(dataApi: any): dataApi is ResponseApiLogin {
     // Vérification du type guard
     if ('jwt' in dataApi && typeof dataApi.jwt === 'string') {
