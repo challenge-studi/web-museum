@@ -18,9 +18,11 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class RegisterComponent {
   inscriptionForm: FormGroup;
-  utilisateurs: any[] = [];
 
-  constructor(private readonly fb: FormBuilder) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+  ) {
     this.inscriptionForm = this.fb.group({
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
@@ -33,22 +35,24 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.inscriptionForm.valid) {
-      const lastname = this.inscriptionForm.get('lastname')?.value;
-      const firstname = this.inscriptionForm.get('firstname')?.value;
-      const email = this.inscriptionForm.get('email')?.value;
-      const password = this.inscriptionForm.get('password')?.value;
-      const confirmPassword =
-        this.inscriptionForm.get('confirmPassword')?.value;
-      const birthday = this.inscriptionForm.get('birthday')?.value;
-      this.utilisateurs.push({
-        lastname,
-        firstname,
-        email,
-        password,
-        confirmPassword,
-        birthday,
+      const user: User = {
+        lastname: this.inscriptionForm.get('lastname')?.value,
+        firstname: this.inscriptionForm.get('firstname')?.value,
+        email: this.inscriptionForm.get('email')?.value,
+        birthday: this.inscriptionForm.get('birthday')?.value,
+      };
+
+      console.log('User data to be sent:', user);
+
+      this.authService.register(user).subscribe({
+        next: (response) => {
+          console.log('Inscription réussie:', response);
+          this.inscriptionForm.reset();
+        },
+        error: (error) => {
+          console.error("Erreur lors de l'inscription:", error);
+        },
       });
-      this.inscriptionForm.reset();
     }
   }
 }

@@ -43,7 +43,7 @@ export class AuthService {
     const observable = this.http.post('/api/auth/local/register', {
       username: user.email,
       email: user.email,
-      password: user.password,
+      passwor: user.password,
       birthday: user.birthday,
       firstname: user.firstname,
       lastname: user.lastname,
