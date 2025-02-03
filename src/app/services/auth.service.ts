@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import User from '../models/UserInterface';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 type ResponseApiLogin = {
   jwt: string;
@@ -24,28 +24,28 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) {}
 
-  login(identifier: string, password: string) {
+  login(identifier: string, password: string): Observable<User> {
     const observable = this.http
       .post('/api/auth/local', {
         identifier: identifier,
         password: password,
       })
       .pipe(
-        tap((response) => {
-          if (this.isResponseApiValide(response)) {
-            // Connexion Réussi:
-            this.tokenJWT = response.jwt;
-            this.user = {
-              firstname: response.user.firstname,
-              lastname: response.user.lastname,
-              email: response.user.email,
-              birthday: response.user.birtday,
-            };
+        map((response) => {
+          if (!this.isResponseApiValide(response))
+            throw new Error('Format Invalid');
 
-            console.log('Connexion Réussi');
-          } else {
-            throw new Error('Login Invalid');
-          }
+          const user: User = {
+            firstname: response.user.firstname,
+            lastname: response.user.lastname,
+            email: response.user.email,
+            birthday: response.user.birtday,
+          };
+
+          this.tokenJWT = response.jwt;
+          this.user = user;
+
+          return user;
         }),
       );
 
@@ -82,6 +82,7 @@ export class AuthService {
 
   loadUserFromApi() {
     //TODO: implémenter la méthode pour récuperer user depuis API si token déja valide. /users/me
+    if (!this.tokenJWT) throw new Error('Jeton JWT absent');
   }
 
   isResponseApiValide(dataApi: any): dataApi is ResponseApiLogin {
