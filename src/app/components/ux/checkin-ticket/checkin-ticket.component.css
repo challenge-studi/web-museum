@@ -20,3 +20,12 @@
   text-decoration: none;
   cursor: pointer;
 }
+
+.minus,
+.plus {
+  height: 4vh;
+  width: 4vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
