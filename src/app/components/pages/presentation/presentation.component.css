@@ -16,3 +16,10 @@
 .card-container:hover {
   transform: scale(1.05);
 }
+
+@media (max-width: 767px) {
+  .card-container {
+    flex: 1 1 100%;
+    margin-bottom: 20px;
+  }
+}
