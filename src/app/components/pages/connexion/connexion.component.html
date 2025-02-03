@@ -9,8 +9,6 @@
   </div>
   <app-button (buttonCliked)="onSubmit()" name="Connexion" />
 </form>
-<button (click)="onLogout()">Logout</button>
-<button (click)="onTest()">test</button>
 <div>
   @if (connected$ | async; as connected) {
     <p>L'utilisateur est connecté</p>
