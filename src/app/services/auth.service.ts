@@ -59,15 +59,34 @@ export class AuthService {
     //TODO suppresion du localStorage ou du cookie et crée et mise a jour de observable User
   }
 
-  register(user: User, password: string) {
-    const observable = this.http.post('/api/auth/local/register', {
-      username: user.email,
-      email: user.email,
-      password: password,
-      birthday: user.birthday,
-      firstname: user.firstname,
-      lastname: user.lastname,
-    });
+  register(user: User, password: string): Observable<User> {
+    const observable = this.http
+      .post('/api/auth/local/register', {
+        username: user.email,
+        email: user.email,
+        password: password,
+        birthday: user.birthday,
+        firstname: user.firstname,
+        lastname: user.lastname,
+      })
+      .pipe(
+        map((response) => {
+          if (!this.isResponseApiValide(response))
+            throw new Error('format invalid');
+
+          const user: User = {
+            firstname: response.user.firstname,
+            lastname: response.user.lastname,
+            email: response.user.email,
+            birthday: response.user.birtday,
+          };
+
+          this.tokenJWT = response.jwt;
+          this.user = user;
+
+          return user;
+        }),
+      );
 
     return observable;
   }
