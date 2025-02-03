@@ -1,0 +1,57 @@
+.h1 {
+  color: #6e4b13;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+.div-contenu {
+  gap: 2%;
+  margin-bottom: 10%;
+}
+h2 {
+  color: white;
+  width: 50%;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+.div-h2 {
+  margin-bottom: 7%;
+}
+.recap {
+  background-color: #b9721a;
+  border-radius: 10px;
+  width: 30%;
+}
+.ticket {
+  width: 90%;
+  border-radius: 10px;
+  margin-bottom: 5%;
+}
+.infos p {
+  width: 33%;
+  margin-top: 2%;
+}
+.infos-vg {
+  margin-top: 7%;
+}
+.infos-vg-arr {
+  margin-top: 3%;
+}
+.h-arr {
+  color: red;
+}
+
+.terminal {
+  background-color: #6e4b13;
+  border-radius: 10px;
+  width: 30%;
+}
+.form {
+  width: 60%;
+}
+label {
+  color: #f1d6aa;
+}
+.label {
+  margin-top: 10%;
+}
