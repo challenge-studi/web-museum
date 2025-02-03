@@ -1,0 +1,79 @@
+<section>
+  <h1 class="h1 fw-bold text-uppercase text-center">
+    validation de votre paiement
+  </h1>
+  <div class="div-contenu d-flex justify-content-center">
+    <div class="recap d-flex justify-content-center flex-wrap">
+      <h2 class="text-center">Récapitulatif de commande</h2>
+      <div class="ticket bg-white">
+        <div>
+          <div class="infos d-flex text-center justify-content-between">
+            <p>adulte</p>
+            <p>2 x 20.00€</p>
+            <p>40.00€</p>
+          </div>
+          <div class="infos text-center d-flex justify-content-between">
+            <p>- de 16 ans</p>
+            <p>1 x 15.00€</p>
+            <p>15.00€</p>
+          </div>
+          <div class="infos text-center d-flex justify-content-between">
+            <p>avec casque</p>
+            <p>3 x 5.00€</p>
+            <p>15.00€</p>
+          </div>
+          <div class="infos text-center d-flex justify-content-between">
+            <p>avec guide</p>
+            <p>3pl 1 x 15.00€</p>
+            <p>15.00€</p>
+          </div>
+        </div>
+        <div class="infos-vg text-center d-flex justify-content-center">
+          <p>visite guidée du 10/02/25 à 11H15</p>
+        </div>
+        <div class="infos-vg-arr text-center d-flex justify-content-center">
+          <p>
+            arrivée requise pour la visite guidée : <br />
+            Se présenter dans le hall d'entrée du musée à :
+          </p>
+        </div>
+        <div class="infos-vg-arr text-center d-flex justify-content-center">
+          <p class="h-arr fw-bold text-uppercase fs-4">
+            11H10 <br />
+            maximum
+          </p>
+        </div>
+        <div class="infos-vg-arr text-center d-flex justify-content-center">
+          <p class="fw-bold text-uppercase fs-4">total : 85.00€</p>
+        </div>
+      </div>
+    </div>
+    <div class="terminal">
+      <div class="div-h2 d-flex justify-content-center">
+        <h2 class="text-center">Paiement</h2>
+      </div>
+      <div class="d-flex justify-content-center">
+        <form class="form d-flex justify-content-center flex-column" action="">
+          <label for="n°_cb">N° de carte bancaire</label>
+          <br />
+          <input type="int" id="n°_cb" required />
+          <br />
+          <label class="label" for="date-exp">date d'expiration</label>
+          <br />
+          <input type="date" id="date-exp" required />
+          <br />
+          <label class="label" for="cryptogramme">cryptogramme visuel</label>
+          <br />
+          <input type="int" id="cryptogramme" required />
+          <br />
+          <label class="label" for="titulaire-carte"
+            >titulaire de la carte</label
+          >
+          <br />
+          <input type="text" id="titulaire-carte" required />
+        </form>
+      </div>
+      <app-button name="Je valide mon paiement" varient="secondary" />
+    </div>
+  </div>
+</section>

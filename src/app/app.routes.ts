@@ -1,3 +1,4 @@
+import { TerminalPaiementComponent } from './components/pages/feature/terminal-paiement/terminal-paiement.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
 import { PresentationComponent } from './components/pages/presentation/presentation.component';
@@ -9,4 +10,5 @@ export const routes: Routes = [
   { path: 'presentation', component: PresentationComponent },
   { path: 'billetterie', component: BilletterieComponent },
   { path: 'auth', component: AuthComponent },
+  { path: 'validation-commande', component: TerminalPaiementComponent },
 ];
