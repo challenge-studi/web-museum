@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import User from '../../../models/UserInterface';
 import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -22,6 +23,7 @@ export class RegisterComponent {
   constructor(
     private readonly fb: FormBuilder,
     private readonly authService: AuthService,
+    private readonly router: Router,
   ) {
     this.inscriptionForm = this.fb.group({
       firstname: ['', [Validators.required]],
@@ -42,7 +44,7 @@ export class RegisterComponent {
         birthday: this.inscriptionForm.get('birthday')?.value,
       };
 
-      const password = this.inscriptionForm.get("password")?.value;
+      const password = this.inscriptionForm.get('password')?.value;
 
       console.log('User data to be sent:', user);
 
@@ -50,6 +52,7 @@ export class RegisterComponent {
         next: (response) => {
           console.log('Inscription réussie:', response);
           this.inscriptionForm.reset();
+          this.router.navigate(['/']);
         },
         error: (error) => {
           console.error("Erreur lors de l'inscription:", error);
