@@ -42,9 +42,11 @@ export class RegisterComponent {
         birthday: this.inscriptionForm.get('birthday')?.value,
       };
 
+      const password = this.inscriptionForm.get("password")?.value;
+
       console.log('User data to be sent:', user);
 
-      this.authService.register(user).subscribe({
+      this.authService.register(user, password).subscribe({
         next: (response) => {
           console.log('Inscription réussie:', response);
           this.inscriptionForm.reset();
