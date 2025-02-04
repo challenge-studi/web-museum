@@ -17,6 +17,7 @@ describe('CommandService', () => {
   let service: CommandService;
   let httpTesting: HttpTestingController;
   let auth: AuthService;
+  let user: User;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -25,6 +26,12 @@ describe('CommandService', () => {
     service = TestBed.inject(CommandService);
     httpTesting = TestBed.inject(HttpTestingController);
     auth = TestBed.inject(AuthService);
+    user = {
+      firstname: 'John',
+      lastname: 'Doe',
+      email: 'john.doe@example.com',
+      birthday: '1970-01-01',
+    };
   });
 
   it('should be created', () => {
@@ -32,24 +39,13 @@ describe('CommandService', () => {
   });
 
   it('getCommand should return a command', async () => {
-    let user: User = {
-      firstname: 'John',
-      lastname: 'Doe',
-      email: 'john.doe@example.com',
-      birthday: '1970-01-01',
-    };
-
     Object.defineProperty(auth, 'user', { value: user });
-
-    console.log(GET_COMMAND);
 
     let response$ = service.getCommands();
 
     const responsePromise = firstValueFrom(response$);
 
     let req = httpTesting.expectOne(() => true, 'GET command');
-
-    console.log(GET_COMMAND);
 
     let command: Commande = {
       id: 3,
@@ -63,11 +59,36 @@ describe('CommandService', () => {
     expect(await responsePromise).toEqual([command]);
   });
 
+  it('getCommand should raise a error if api send bad format', async () => {
+    Object.defineProperty(auth, 'user', { value: user });
+
+    let response$ = service.getCommands();
+
+    const responsePromise = firstValueFrom(response$);
+
+    let req = httpTesting.expectOne(
+      () => true,
+      'GET command with invalid format',
+    );
+
+    req.flush('Salut les lapin');
+
+    responsePromise.catch((error) => expect(error).toBeDefined);
+  });
+
   it('get command shoud raise a error if user is not connected', () => {
     expect(() => service.getCommands()).toThrow();
   });
 
   it('send command ( to modified )', () => {
     expect(service.validateCommand([], 2)).toBe(true);
+  });
+
+  it('isResponseValide shoud return true', () => {
+    expect(service.isResponseCommandeValide(GET_COMMAND)).toBe(true);
+  });
+
+  it('isResponseCommandeValide should return false if invalid format', () => {
+    expect(service.isResponseCommandeValide('Une Connnerie')).toBe(false);
   });
 });
