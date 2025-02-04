@@ -1,0 +1,14 @@
+<div>
+  <h5>Horaires d'ouverture</h5>
+
+  <ul class="list-inline">
+    @for (horaire of horaires; track horaire.id) {
+      <li>
+        {{ horaire.day_of_week }} : de {{ horaire.opening_time }} à
+        {{ horaire.closing_time }}
+      </li>
+    } @empty {
+      <div>Nous n'avons pas d'horaire à vous proposer.</div>
+    }
+  </ul>
+</div>

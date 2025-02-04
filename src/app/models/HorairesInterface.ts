@@ -3,8 +3,4 @@ export default interface Horaire {
   day_of_week: string; // VARCHAR(15)
   opening_time: string; // TIME
   closing_time: string; // TIME
-
-  getDayOfWeek(): string;
-  getOpeningTime(): string;
-  setClosingTime(time: string): void;
 }
