@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { AuthService } from '../../../services/auth.service';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;

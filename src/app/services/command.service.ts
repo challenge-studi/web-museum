@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import Ticket from '../models/TicketInterface';
-import User from '../models/UserInterface';
-import Price, { PriceWithCount } from '../models/PriceInterface';
+import { PriceWithCount } from '../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -35,13 +33,16 @@ export class CommandService {
     private readonly auth: AuthService,
   ) {}
 
-  validateCommand(choiceTickets: PriceWithCount, idExposition: number) {
+  validateCommand(choiceTickets: PriceWithCount[], idExposition: number) {
     //TODO: faire la request HTTP sur la route de prise de commande ( pas encore implémenter );
 
     console.log(choiceTickets);
     console.log(idExposition);
 
     // requete HTTP pour l'envoi sur Api (Besoin de faire le controleur );
+
+    // en construction
+    return true;
   }
 
   getCommands(): Observable<Commande[]> {
