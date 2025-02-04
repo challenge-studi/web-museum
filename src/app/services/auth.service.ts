@@ -11,7 +11,7 @@ type ResponseApiLogin = {
     email: string;
     firstname: string;
     lastname: string;
-    birtday: string;
+    birthday: string;
   };
 };
 
@@ -42,7 +42,7 @@ export class AuthService {
             firstname: response.user.firstname,
             lastname: response.user.lastname,
             email: response.user.email,
-            birthday: response.user.birtday,
+            birthday: response.user.birthday,
           };
 
           this.tokenJWT = response.jwt;
@@ -84,7 +84,7 @@ export class AuthService {
             firstname: response.user.firstname,
             lastname: response.user.lastname,
             email: response.user.email,
-            birthday: response.user.birtday,
+            birthday: response.user.birthday,
           };
 
           this.tokenJWT = response.jwt;

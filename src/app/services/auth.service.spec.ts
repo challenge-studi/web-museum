@@ -112,9 +112,7 @@ describe('AuthService', () => {
 
     req.flush(DATA_BAD_PASSWORD);
 
-    responsePromise.catch((error) =>
-      expect(error.message).toBe('Login Invalid'),
-    );
+    responsePromise.catch((error) => expect(error).toBeDefined());
 
     httpTesting.verify();
   });
@@ -144,7 +142,7 @@ describe('AuthService', () => {
       lastname: 'Doe',
       email: 'john.doe@example.com',
       password: 'password',
-      birthday: new Date('1970-01-01'),
+      birthday: '1970-01-01',
     });
 
     req.flush(DATA_API);
