@@ -73,7 +73,12 @@ export class CommandService {
   }
 
   isResponseCommandeValide(dataApi: any): dataApi is ResponseApiCommand {
-    if ('data' in dataApi && Array.isArray(dataApi.data)) return true;
+    if (
+      typeof dataApi === 'object' &&
+      'data' in dataApi &&
+      Array.isArray(dataApi.data)
+    )
+      return true;
     else return false;
 
     //TODO: vérification très lègere, à voir si on utilise Zod
