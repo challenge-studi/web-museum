@@ -20,7 +20,7 @@ export class ConnexionComponent {
 
   constructor(
     private readonly fb: FormBuilder,
-    private auth: AuthService,
+    private readonly auth: AuthService,
   ) {
     this.connexionForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
