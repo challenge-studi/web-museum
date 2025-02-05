@@ -8,7 +8,9 @@
         </p>
       </div>
       <div class="d-flex">
-        <input class="select-ticket" type="number" [value]="count" />
+        <button (click)="decrement()" class="minus">-</button>
+        <input class="select-ticket" type="string" disabled [value]="count" />
+        <button (click)="increment()" class="plus">+</button>
       </div>
     </div>
   </div>

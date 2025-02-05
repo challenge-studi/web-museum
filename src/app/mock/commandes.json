@@ -1,0 +1,22 @@
+{
+  "data": [
+    {
+      "id": 3,
+      "documentId": "a4vggel17ty6a7h1tciopn37",
+      "total_price": 42,
+      "order_date": "2025-02-02",
+      "etat": "En cours",
+      "createdAt": "2025-02-02T14:42:37.633Z",
+      "updatedAt": "2025-02-02T19:25:51.744Z",
+      "publishedAt": "2025-02-02T19:25:51.770Z"
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 1
+    }
+  }
+}

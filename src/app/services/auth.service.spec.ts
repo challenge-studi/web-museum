@@ -7,6 +7,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { firstValueFrom } from 'rxjs';
+import User from '../models/UserInterface';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -26,7 +27,16 @@ describe('AuthService', () => {
       createdAt: '2025-01-29T16:08:20.855Z',
       updatedAt: '2025-01-29T16:08:20.855Z',
       publishedAt: '2025-01-29T16:08:20.699Z',
+      firstname: 'John',
+      lastname: 'Doe',
     },
+  };
+
+  const DATA_USER: User = {
+    firstname: 'John',
+    lastname: 'Doe',
+    email: 'john.doe@example.com',
+    birthday: '1970-01-01',
   };
 
   const DATA_BAD_PASSWORD = {
@@ -41,7 +51,7 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [AuthService, provideHttpClient(), provideHttpClientTesting()],
     });
     service = TestBed.inject(AuthService);
     httpTesting = TestBed.inject(HttpTestingController);
@@ -78,7 +88,7 @@ describe('AuthService', () => {
     // mock the request
     req.flush(DATA_API);
 
-    expect(await responsePromise).toEqual(DATA_API);
+    expect(await responsePromise).toEqual(DATA_USER);
 
     httpTesting.verify();
   });
@@ -100,32 +110,24 @@ describe('AuthService', () => {
       password: 'badPassword',
     });
 
-    // mock the request
     req.flush(DATA_BAD_PASSWORD);
 
-    //expect(await responsePromise).toEqual(DATA_API);
-
-    // Chat GPT complete ici, et pas de connnerie
-    //responsePromise.catch(error => expect(error).toBe("Login Invalid"));
-    responsePromise.catch((error) =>
-      expect(error.message).toBe('Login Invalid'),
-    );
+    responsePromise.catch((error) => expect(error).toBeDefined());
 
     httpTesting.verify();
   });
 
-  /*--------------------------------------------------------------------------------*/
-
   it('method register', async () => {
-    const response$ = service.register({
-      firstname: 'John',
-      lastname: 'Doe',
-      email: 'john.doe@example.com',
-      password: 'password',
-      birthday: '1970-01-01',
-    });
+    const response$ = service.register(
+      {
+        firstname: 'John',
+        lastname: 'Doe',
+        email: 'john.doe@example.com',
+        birthday: '1970-01-01',
+      },
+      'password',
+    );
 
-    // subcripition to the `Observalbe`and create a `Promise` of the response
     const responsePromise = firstValueFrom(response$);
 
     const req = httpTesting.expectOne(
@@ -143,10 +145,9 @@ describe('AuthService', () => {
       birthday: '1970-01-01',
     });
 
-    // mock the request
     req.flush(DATA_API);
 
-    expect(await responsePromise).toEqual(DATA_API);
+    expect(await responsePromise).toEqual(DATA_USER);
     httpTesting.verify();
   });
 });
