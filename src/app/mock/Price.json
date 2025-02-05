@@ -1,0 +1,110 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "documentId": "doc1",
+      "price": 10,
+      "tickets_type": "Type1",
+      "createdAt": "2025-02-05T12:42:40.378Z",
+      "updatedAt": "2025-02-05T12:42:40.379Z",
+      "publishedAt": "2025-02-05T12:42:40.379Z",
+      "createdBy": {
+        "id": 1,
+        "documentId": "user1",
+        "firstname": "John",
+        "lastname": "Doe",
+        "username": "johndoe",
+        "email": "john.doe@example.com",
+        "resetPasswordToken": null,
+        "registrationToken": null,
+        "isActive": true,
+        "roles": [],
+        "blocked": false,
+        "preferedLanguage": "en",
+        "createdAt": "2025-02-05T12:42:40.379Z",
+        "updatedAt": "2025-02-05T12:42:40.379Z",
+        "publishedAt": "2025-02-05T12:42:40.379Z",
+        "locale": "en",
+        "localizations": []
+      },
+      "updatedBy": {
+        "id": 1,
+        "documentId": "user1",
+        "firstname": "John",
+        "lastname": "Doe",
+        "username": "johndoe",
+        "email": "john.doe@example.com",
+        "resetPasswordToken": null,
+        "registrationToken": null,
+        "isActive": true,
+        "roles": [],
+        "blocked": false,
+        "preferedLanguage": "en",
+        "createdAt": "2025-02-05T12:42:40.379Z",
+        "updatedAt": "2025-02-05T12:42:40.379Z",
+        "publishedAt": "2025-02-05T12:42:40.379Z",
+        "locale": "en",
+        "localizations": []
+      },
+      "locale": "en",
+      "localizations": []
+    },
+    {
+      "id": 2,
+      "documentId": "doc2",
+      "price": 20,
+      "tickets_type": "Type2",
+      "createdAt": "2025-02-05T12:42:40.378Z",
+      "updatedAt": "2025-02-05T12:42:40.379Z",
+      "publishedAt": "2025-02-05T12:42:40.379Z",
+      "createdBy": {
+        "id": 2,
+        "documentId": "user2",
+        "firstname": "Jane",
+        "lastname": "Smith",
+        "username": "janesmith",
+        "email": "jane.smith@example.com",
+        "resetPasswordToken": null,
+        "registrationToken": null,
+        "isActive": true,
+        "roles": [],
+        "blocked": false,
+        "preferedLanguage": "en",
+        "createdAt": "2025-02-05T12:42:40.379Z",
+        "updatedAt": "2025-02-05T12:42:40.379Z",
+        "publishedAt": "2025-02-05T12:42:40.379Z",
+        "locale": "en",
+        "localizations": []
+      },
+      "updatedBy": {
+        "id": 2,
+        "documentId": "user2",
+        "firstname": "Jane",
+        "lastname": "Smith",
+        "username": "janesmith",
+        "email": "jane.smith@example.com",
+        "resetPasswordToken": null,
+        "registrationToken": null,
+        "isActive": true,
+        "roles": [],
+        "blocked": false,
+        "preferedLanguage": "en",
+        "createdAt": "2025-02-05T12:42:40.379Z",
+        "updatedAt": "2025-02-05T12:42:40.379Z",
+        "publishedAt": "2025-02-05T12:42:40.379Z",
+        "locale": "en",
+        "localizations": []
+      },
+      "locale": "en",
+      "localizations": []
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 2
+    }
+  }
+}

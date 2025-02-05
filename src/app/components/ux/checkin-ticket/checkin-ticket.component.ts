@@ -22,6 +22,9 @@ export class CheckinTicketComponent {
     this.onValueChanged.emit({ id: this.ticketType().id, count: this.count });
   }
   decrement() {
-    if (this.count > 0) this.count -= 1;
+    if (this.count > 0) {
+      this.count -= 1;
+      this.onValueChanged.emit({ id: this.ticketType().id, count: this.count });
+    }
   }
 }
