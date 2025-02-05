@@ -1,0 +1,17 @@
+<section>
+  <div class="price-line">
+    <div class="component-price d-flex justify-content-between">
+      <div>
+        <p class="text fs-6">
+          {{ ticketType().tickets_type }} ( {{ ticketType().price }}€ prix
+          unitaire )
+        </p>
+      </div>
+      <div class="d-flex">
+        <button (click)="decrement()" class="minus">-</button>
+        <input class="select-ticket" type="string" disabled [value]="count" />
+        <button (click)="increment()" class="plus">+</button>
+      </div>
+    </div>
+  </div>
+</section>

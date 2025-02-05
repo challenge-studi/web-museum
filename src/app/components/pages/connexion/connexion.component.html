@@ -5,7 +5,14 @@
   </div>
   <div class="form-group">
     <label for="login-motDePasse">Mot de passe</label>
-    <input id="login-motDePasse" formControlName="motDePasse" type="password" />
+    <input id="login-motDePasse" formControlName="password" type="password" />
   </div>
   <app-button (buttonCliked)="onSubmit()" name="Connexion" />
 </form>
+<div>
+  @if (connected$ | async; as connected) {
+    <p>L'utilisateur est connecté</p>
+  } @else {
+    <p>L'utilisateur est déconnecté</p>
+  }
+</div>

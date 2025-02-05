@@ -1,19 +1,50 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './register.component';
+import { provideHttpClient } from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
   let fixture: ComponentFixture<RegisterComponent>;
+  let httpTesting: HttpTestingController;
+  const DATA_API = {
+    jwt: 'theSuperToken',
+    user: {
+      id: 1,
+      documentId: 'theDocumentId',
+      username: 'john.doe@example.com',
+      email: 'john.doe@example.com',
+      provider: 'local',
+      confirmed: true,
+      blocker: false,
+      birthday: '1970-01-01',
+      createdAt: '2025-01-29T16:08:20.855Z',
+      updatedAt: '2025-01-29T16:08:20.855Z',
+      publishedAt: '2025-01-29T16:08:20.699Z',
+      firstname: 'John',
+      lastname: 'Doe',
+    },
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, RegisterComponent],
+      providers: [provideHttpClient(), provideHttpClientTesting()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(RegisterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    httpTesting = TestBed.inject(HttpTestingController);
   });
 
   it('should create the component', () => {
@@ -23,10 +54,11 @@ describe('RegisterComponent', () => {
   it('should initialize the form with empty values', () => {
     const form = component.inscriptionForm;
     expect(form.value).toEqual({
-      nom: '',
-      prenom: '',
+      lastname: '',
+      firstname: '',
       email: '',
-      motDePasse: '',
+      password: '',
+      confirmPassword: '',
       birthday: '',
     });
   });
@@ -37,59 +69,43 @@ describe('RegisterComponent', () => {
 
   it('should validate the form as valid when all fields are filled', () => {
     component.inscriptionForm.setValue({
-      nom: 'Doe',
-      prenom: 'John',
+      lastname: 'Doe',
+      firstname: 'John',
       email: 'john.doe@example.com',
-      motDePasse: 'password123',
+      password: 'password123',
+      confirmPassword: 'password123',
       birthday: '1990-01-01',
     });
 
     expect(component.inscriptionForm.valid).toBeTrue();
   });
 
-  it('should add a user and reset the form on valid submission', () => {
+  it('should reset the form on valid submission', fakeAsync(() => {
     component.inscriptionForm.setValue({
-      nom: 'Doe',
-      prenom: 'John',
+      lastname: 'Doe',
+      firstname: 'John',
       email: 'john.doe@example.com',
-      motDePasse: 'password123',
+      password: 'password123',
+      confirmPassword: 'password123',
       birthday: '1990-01-01',
     });
 
     component.onSubmit();
 
-    // Vérifie qu'un utilisateur est ajouté
-    expect(component.utilisateurs.length).toBe(1);
-    expect(component.utilisateurs[0]).toEqual({
-      nom: 'Doe',
-      prenom: 'John',
-      email: 'john.doe@example.com',
-      motDePasse: 'password123',
-      birthday: '1990-01-01',
-    });
+    // mock la requete HTTP
+    httpTesting.expectOne(() => true).flush(DATA_API);
+
+    // on attend
+    tick();
 
     // Vérifie que le formulaire est réinitialisé
     expect(component.inscriptionForm.value).toEqual({
-      nom: null,
-      prenom: null,
+      lastname: null,
+      firstname: null,
       email: null,
-      motDePasse: null,
+      password: null,
+      confirmPassword: null,
       birthday: null,
     });
-  });
-
-  it('should not add a user if the form is invalid', () => {
-    component.inscriptionForm.setValue({
-      nom: '',
-      prenom: '',
-      email: 'invalid-email',
-      motDePasse: '',
-      birthday: '',
-    });
-
-    component.onSubmit();
-
-    // Vérifie qu'aucun utilisateur n'est ajouté
-    expect(component.utilisateurs.length).toBe(0);
-  });
+  }));
 });

@@ -14,7 +14,7 @@
 }
 
 .logo {
-  height: auto;
+  height: 8%;
   width: 10%;
 }
 
@@ -25,11 +25,11 @@ a {
 .navbar-nav {
   background: linear-gradient(
     135deg,
-    #b9721a 47.5%,
+    #b9721a 75%,
     #fcfbfb,
     #000,
     #f1d6aa,
-    #b9721a 58.5%
+    #b9721a 85%
   );
 }
 .highlight-effect:hover {

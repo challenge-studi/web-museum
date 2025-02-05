@@ -8,6 +8,8 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import User from '../../../models/UserInterface';
+import { AuthService } from '../../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -17,27 +19,45 @@ import User from '../../../models/UserInterface';
 })
 export class RegisterComponent {
   inscriptionForm: FormGroup;
-  utilisateurs: User[] = [];
 
-  constructor(private readonly fb: FormBuilder) {
+  constructor(
+    private readonly fb: FormBuilder,
+    private readonly authService: AuthService,
+    private readonly router: Router,
+  ) {
     this.inscriptionForm = this.fb.group({
-      nom: ['', [Validators.required]],
-      prenom: ['', [Validators.required]],
+      firstname: ['', [Validators.required]],
+      lastname: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      motDePasse: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      confirmPassword: ['', [Validators.required]],
       birthday: ['', [Validators.required]],
     });
   }
 
   onSubmit() {
     if (this.inscriptionForm.valid) {
-      const nom = this.inscriptionForm.get('nom')?.value;
-      const prenom = this.inscriptionForm.get('prenom')?.value;
-      const email = this.inscriptionForm.get('email')?.value;
-      const motDePasse = this.inscriptionForm.get('motDePasse')?.value;
-      const birthday = this.inscriptionForm.get('birthday')?.value;
-      this.utilisateurs.push({ nom, prenom, email, motDePasse, birthday });
-      this.inscriptionForm.reset();
+      const user: User = {
+        lastname: this.inscriptionForm.get('lastname')?.value,
+        firstname: this.inscriptionForm.get('firstname')?.value,
+        email: this.inscriptionForm.get('email')?.value,
+        birthday: this.inscriptionForm.get('birthday')?.value,
+      };
+
+      const password = this.inscriptionForm.get('password')?.value;
+
+      console.log('User data to be sent:', user);
+
+      this.authService.register(user, password).subscribe({
+        next: (response) => {
+          console.log('Inscription réussie:', response);
+          this.inscriptionForm.reset();
+          this.router.navigate(['/']);
+        },
+        error: (error) => {
+          console.error("Erreur lors de l'inscription:", error);
+        },
+      });
     }
   }
 }

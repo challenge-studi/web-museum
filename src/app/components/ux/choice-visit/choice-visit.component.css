@@ -1,0 +1,14 @@
+.visit-line {
+  color: white;
+  height: 4%;
+  width: 80%;
+  padding: 0 2% 0 4%;
+}
+.text {
+  padding-bottom: 1%;
+}
+.select-ticket {
+  height: 3vh;
+  width: 2vw;
+  padding-top: 1%;
+}

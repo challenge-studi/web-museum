@@ -1,11 +1,7 @@
 <header class="header-container decor">
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <img
-        src="icones\logo-musee.png"
-        class="logo img-fluid"
-        alt="Logo-du-musee"
-      />
+      <img src="icones\logo03.png" class="logo img-fluid" alt="Logo-du-musee" />
       <button
         class="navbar-toggler"
         type="button"
@@ -39,10 +35,17 @@
               >mes infos</a
             >
           </li>
+
           <li class="nav-item connex-inscrip">
-            <a class="nav-link highlight-effect" [routerLink]="['auth']"
-              >connexion / inscription</a
-            >
+            @if (connected$ | async; as connected) {
+              <button class="nav-link highlight-effect" (click)="auth.logout()">
+                se déconnecter
+              </button>
+            } @else {
+              <a class="nav-link highlight-effect" [routerLink]="['auth']"
+                >connexion / inscription</a
+              >
+            }
           </li>
         </ul>
       </div>

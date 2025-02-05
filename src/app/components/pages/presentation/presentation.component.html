@@ -1,1 +1,14 @@
-<p>presentation works!</p>
+<div class="container mt-5">
+  <div class="row">
+    <div
+      class="col-md-6 card-container"
+      *ngFor="let exposition of expositions; let i = index"
+    >
+      <app-expo
+        [dataExpoCard]="exposition"
+        [imageUrl]="imageUrls[i]"
+        [layout]="i % 2 === 0 ? 'top' : 'bottom'"
+      ></app-expo>
+    </div>
+  </div>
+</div>
