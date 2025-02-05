@@ -81,11 +81,4 @@ export class BilletterieComponent {
       0,
     );
   }
-
-  test() {
-    console.log(this.calculTotalPrice());
-  }
-  trackById(index: number, item: PriceWithCount): number {
-    return item.id;
-  }
 }

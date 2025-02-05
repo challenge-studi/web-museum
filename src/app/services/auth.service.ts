@@ -22,6 +22,7 @@ export class AuthService {
   private tokenJWT: string | undefined = undefined;
   private user: User | undefined = undefined;
   public connected$;
+  static register: any;
 
   constructor(private readonly http: HttpClient) {
     this.connected$ = new BehaviorSubject(false);
@@ -61,8 +62,6 @@ export class AuthService {
     this.user = undefined;
     localStorage.removeItem('jwt');
     this.connected$.next(false);
-
-    //TODO suppresion du localStorage ou du cookie et crée et mise a jour de observable User
   }
 
   register(user: User, password: string): Observable<User> {
@@ -106,7 +105,6 @@ export class AuthService {
   }
 
   loadUserFromApi() {
-    //TODO: implémenter la méthode pour récuperer user depuis API si token déja valide. /users/me
     if (!this.tokenJWT) throw new Error('Jeton JWT absent');
   }
 
