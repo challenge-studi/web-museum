@@ -22,7 +22,6 @@ export class AuthService {
   private tokenJWT: string | undefined = undefined;
   private user: User | undefined = undefined;
   public connected$;
-  static readonly register: any;
 
   constructor(private readonly http: HttpClient) {
     this.connected$ = new BehaviorSubject(false);

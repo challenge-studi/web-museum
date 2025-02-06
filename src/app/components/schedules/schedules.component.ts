@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import Horaire from '../../models/HorairesInterface';
+import Horaire, { ReponseHoraireApi } from '../../models/HorairesInterface';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -15,8 +15,9 @@ export class SchedulesComponent {
   constructor(private readonly http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<{ data: any[] }>(this.apiUrl).subscribe({
+    this.http.get(this.apiUrl).subscribe({
       next: (response) => {
+        if (!this.isdataApiValid(response)) throw new Error('Data invalide');
         this.horaires = response.data.map((item) => ({
           id: item.id,
           day_of_week: item.day_of_week,
@@ -28,6 +29,14 @@ export class SchedulesComponent {
         console.error('Erreur lors de la récupération des horaires', err);
       },
     });
+  }
+
+  isdataApiValid(dataApi: unknown): dataApi is ReponseHoraireApi {
+    if (dataApi && typeof dataApi === 'object' && 'data' in dataApi)
+      return true;
+    else {
+      return false;
+    }
   }
 
   // Méthode pour formater l'heure
