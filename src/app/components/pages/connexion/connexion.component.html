@@ -9,10 +9,3 @@
   </div>
   <app-button (buttonCliked)="onSubmit()" name="Connexion" />
 </form>
-<div>
-  @if (connected$ | async; as connected) {
-    <p>L'utilisateur est connecté</p>
-  } @else {
-    <p>L'utilisateur est déconnecté</p>
-  }
-</div>

@@ -7,11 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
-import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-connexion',
-  imports: [ReactiveFormsModule, ButtonComponent, AsyncPipe],
+  imports: [ReactiveFormsModule, ButtonComponent],
   templateUrl: './connexion.component.html',
   styleUrl: './connexion.component.css',
   standalone: true,

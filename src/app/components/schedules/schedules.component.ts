@@ -15,11 +15,27 @@ export class SchedulesComponent {
   constructor(private readonly http: HttpClient) {}
 
   ngOnInit(): void {
-    this.http.get<Horaire[]>(this.apiUrl).subscribe({
-      next: (data) => {
-        console.log(data);
-        //parser les data
+    this.http.get<{ data: any[] }>(this.apiUrl).subscribe({
+      next: (response) => {
+        this.horaires = response.data.map((item) => ({
+          id: item.id,
+          day_of_week: item.day_of_week,
+          opening_time: this.formatTime(item.opening_time),
+          closing_time: this.formatTime(item.closing_time),
+        }));
+      },
+      error: (err) => {
+        console.error('Erreur lors de la récupération des horaires', err);
       },
     });
+  }
+
+  // Méthode pour formater l'heure
+  formatTime(time: string): string {
+    if (time) {
+      const [hours, minutes] = time.split(':');
+      return `${hours}:${minutes}`;
+    }
+    return '';
   }
 }
