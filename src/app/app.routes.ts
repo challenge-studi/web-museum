@@ -4,12 +4,17 @@ import { HomeComponent } from './components/pages/home/home.component';
 import { PresentationComponent } from './components/pages/presentation/presentation.component';
 import { BilletterieComponent } from './components/pages/billetterie/billetterie.component';
 import { AuthComponent } from './components/pages/auth/auth.component';
+import { authGuard } from './auth.guard';
 import { DashboardComponent } from './components/pages/dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'presentation', component: PresentationComponent },
-  { path: 'billetterie', component: BilletterieComponent },
+  {
+    path: 'billetterie',
+    component: BilletterieComponent,
+    canActivate: [authGuard],
+  },
   { path: 'auth', component: AuthComponent },
   { path: 'mesinfos', component: DashboardComponent },
   { path: 'validation-commande', component: TerminalPaiementComponent },
