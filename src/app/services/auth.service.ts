@@ -87,6 +87,7 @@ export class AuthService {
 
           this.tokenJWT = response.jwt;
           this.user = user;
+          this.connected$.next(true);
 
           return user;
         }),
