@@ -1,8 +1,9 @@
 import { AuthService } from './../../../services/auth.service';
 import { Component } from '@angular/core';
 import { ButtonComponent } from '../../ux/button/button.component';
-import User from '../../../models/UserInterface';
+
 import { getCurrentMonthDates } from '../../../helpers/formatDate';
+import User from '../../../models/UserInterface';
 
 @Component({
   selector: 'app-home',

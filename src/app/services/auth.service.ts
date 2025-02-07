@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import User from '../models/UserInterface';
+
 import { HttpClient } from '@angular/common/http';
 import { map, Observable, BehaviorSubject } from 'rxjs';
+import User from '../models/UserInterface';
 
 type ResponseApiLogin = {
   jwt: string;
@@ -127,5 +128,42 @@ export class AuthService {
     }
   }
 
-  //TODO: implémenter un Observable user
+  changePassword(
+    currentPassword: string,
+    newPassword: string,
+    passwordConfirmation: string,
+  ): Observable<User> {
+    if (!this.tokenJWT) {
+      throw new Error('Utilisateur non authentifié');
+    }
+
+    return this.http
+      .post('/api/auth/change-password', {
+        currentPassword: currentPassword,
+        password: newPassword,
+        passwordConfirmation: passwordConfirmation,
+      })
+      .pipe(
+        map((response: any) => {
+          if (!this.isResponseApiValide(response)) {
+            throw new Error('Format de réponse invalide');
+          }
+
+          // Met à jour l'utilisateur et le token JWT si nécessaire
+          const user: User = {
+            firstname: response.user.firstname,
+            lastname: response.user.lastname,
+            email: response.user.email,
+            birthday: response.user.birthday,
+          };
+
+          this.tokenJWT = response.jwt;
+          this.user = user;
+          this.connected$.next(true);
+          this.saveToken(); // Sauvegarder le nouveau token JWT dans le localStorage
+
+          return user;
+        }),
+      );
+  }
 }
