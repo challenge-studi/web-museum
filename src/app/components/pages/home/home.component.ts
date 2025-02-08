@@ -4,6 +4,7 @@ import { ButtonComponent } from '../../ux/button/button.component';
 
 import { getCurrentMonthDates } from '../../../helpers/formatDate';
 import User from '../../../models/UserInterface';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,10 @@ export class HomeComponent {
   public startDate: string;
   public endDate: string;
 
-  constructor(private readonly auth: AuthService) {
+  constructor(
+    private readonly auth: AuthService,
+    private readonly http: HttpClient,
+  ) {
     const { start, end } = getCurrentMonthDates();
     this.startDate = start;
     this.endDate = end;

@@ -101,6 +101,11 @@ export class AuthService {
     return this.tokenJWT;
   }
 
+  // Méthode publique pour définir le tokenJWT
+  public setTokenJWT(token: string): void {
+    this.tokenJWT = token;
+  }
+
   getUser() {
     return this.user;
   }
