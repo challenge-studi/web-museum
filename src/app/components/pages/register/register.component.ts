@@ -52,7 +52,7 @@ export class RegisterComponent {
         next: (response) => {
           console.log('Inscription réussie:', response);
           this.inscriptionForm.reset();
-          this.router.navigate(['/']);
+          this.router.navigate(['']);
         },
         error: (error) => {
           console.error("Erreur lors de l'inscription:", error);

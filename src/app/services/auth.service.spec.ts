@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { AuthService } from './auth.service';
-import { provideHttpClient } from '@angular/common/http';
+import { HttpClient, provideHttpClient } from '@angular/common/http';
 import {
   HttpTestingController,
   provideHttpClientTesting,
@@ -51,7 +51,12 @@ describe('AuthService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AuthService, provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        AuthService,
+        HttpClient,
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     });
     service = TestBed.inject(AuthService);
     httpTesting = TestBed.inject(HttpTestingController);
@@ -149,5 +154,53 @@ describe('AuthService', () => {
 
     expect(await responsePromise).toEqual(DATA_USER);
     httpTesting.verify();
+  });
+
+  it('method changePassword', async () => {
+    Object.defineProperty(service, 'tokenJWT', { value: 'aSuperToken' });
+
+    const response$ = service.changePassword(
+      'oldPassword',
+      'newPassword',
+      'newPassword',
+    );
+
+    const responsePromise = firstValueFrom(response$);
+
+    const req = httpTesting.expectOne('/api/auth/change-password');
+
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual({
+      currentPassword: 'oldPassword',
+      password: 'newPassword',
+      passwordConfirmation: 'newPassword',
+    });
+
+    req.flush(DATA_API);
+
+    expect(await responsePromise).toEqual(DATA_USER);
+    httpTesting.verify();
+  });
+
+  it('method saveToken', () => {
+    Object.defineProperty(service, 'tokenJWT', { value: 'aSuperToken' });
+
+    service.saveToken();
+
+    expect(localStorage.getItem('jwt')).toBe('aSuperToken');
+  });
+
+  it('method loadToken', () => {
+    spyOn(localStorage, 'getItem').and.returnValue('aSuperToken');
+
+    service.loadToken();
+
+    expect(service.getTokenJwt()).toBe('aSuperToken');
+  });
+
+  it('method loadUserFromApi should throw error if no token', () => {
+    Object.defineProperty(service, 'tokenJWT', { value: undefined });
+
+    expect(() => service.loadUserFromApi()).toThrowError('Jeton JWT absent');
   });
 });

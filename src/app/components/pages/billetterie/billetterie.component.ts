@@ -4,6 +4,9 @@ import { CheckinTicketComponent } from '../../ux/checkin-ticket/checkin-ticket.c
 import Price from '../../../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Exposition } from '../../../models/ExpositionInterface';
+import expoData from '../../../mock/exposition.json';
+import { CommonModule } from '@angular/common';
 
 interface ApiResponse {
   data: PriceApi[];
@@ -35,7 +38,7 @@ type PriceWithCount = Price & { count: number };
 
 @Component({
   selector: 'app-billetterie',
-  imports: [ButtonComponent, CheckinTicketComponent],
+  imports: [ButtonComponent, CheckinTicketComponent, CommonModule],
   templateUrl: './billetterie.component.html',
   styleUrl: './billetterie.component.css',
 })
@@ -43,6 +46,12 @@ export class BilletterieComponent {
   public listPrice: PriceWithCount[] = [];
   public totalPrice: number = 0;
   private readonly apiUrl = '/api/prices';
+  public expositions: Exposition[] = expoData.map((expo) => ({
+    ...expo,
+    departure_date: new Date(expo.departure_date),
+    end_date: new Date(expo.end_date),
+  }));
+  public selectedExposition!: Exposition | null;
 
   constructor(private readonly http: HttpClient) {
     this.getPrices().subscribe((response: ApiResponse) => {
@@ -80,5 +89,8 @@ export class BilletterieComponent {
       (sum, itemCurrent) => sum + itemCurrent.price * itemCurrent.count,
       0,
     );
+  }
+  selectExpo(expo: Exposition) {
+    this.selectedExposition = expo;
   }
 }
