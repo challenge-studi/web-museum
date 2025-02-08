@@ -60,8 +60,7 @@ describe('DashboardComponent', () => {
   });
 
   it('should change password successfully', async () => {
-    // Utiliser la méthode publique pour définir le tokenJWT
-    authService.setTokenJWT('aSuperToken');
+    Object.defineProperty(authService, 'tokenJWT', { value: 'aSuperToken' });
 
     component.currentPassword = 'currentPassword';
     component.newPassword = 'newPassword';
