@@ -4,4 +4,5 @@ export interface Exposition {
   description: string;
   departure_date: Date;
   end_date: Date;
+  imageUrl?: string;
 }
