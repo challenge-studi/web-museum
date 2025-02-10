@@ -26,9 +26,4 @@ export class TerminalPaiementComponent {
       0,
     );
   }
-
-  onSubmit() {
-    // Logique de soumission du formulaire de paiement
-    console.log('Formulaire de paiement soumis');
-  }
 }

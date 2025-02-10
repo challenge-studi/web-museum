@@ -6,4 +6,8 @@ import { Component } from '@angular/core';
   templateUrl: './billet.component.html',
   styleUrl: './billet.component.css',
 })
-export class BilletComponent {}
+export class BilletComponent {
+  commandService(commandService: any, arg1: string) {
+    throw new Error('Method not implemented.');
+  }
+}
