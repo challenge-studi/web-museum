@@ -6,45 +6,22 @@
     <div class="recap d-flex justify-content-center flex-wrap">
       <h2 class="text-center">Récapitulatif de commande</h2>
       <div class="ticket bg-white">
-        <div>
-          <div class="infos d-flex text-center justify-content-between">
-            <p>adulte</p>
-            <p>2 x 20.00€</p>
-            <p>40.00€</p>
-          </div>
-          <div class="infos text-center d-flex justify-content-between">
-            <p>- de 16 ans</p>
-            <p>1 x 15.00€</p>
-            <p>15.00€</p>
-          </div>
-          <div class="infos text-center d-flex justify-content-between">
-            <p>avec casque</p>
-            <p>3 x 5.00€</p>
-            <p>15.00€</p>
-          </div>
-          <div class="infos text-center d-flex justify-content-between">
-            <p>avec guide</p>
-            <p>3pl 1 x 15.00€</p>
-            <p>15.00€</p>
-          </div>
-        </div>
-        <div class="infos-vg text-center d-flex justify-content-center">
-          <p>visite guidée du 10/02/25 à 11H15</p>
-        </div>
-        <div class="infos-vg-arr text-center d-flex justify-content-center">
+        <div class="infos d-flex text-center justify-content-between">
           <p>
-            arrivée requise pour la visite guidée : <br />
-            Se présenter dans le hall d'entrée du musée à :
+            <strong>Exposition Sélectionnée:</strong>
+            {{ selectedExposition?.name }}
           </p>
         </div>
-        <div class="infos-vg-arr text-center d-flex justify-content-center">
-          <p class="h-arr fw-bold text-uppercase fs-4">
-            11H10 <br />
-            maximum
-          </p>
+        <div *ngFor="let ticket of current_command">
+          <div class="infos d-flex text-center justify-content-between">
+            <p>Price: {{ ticket.price }}</p>
+            <p>Quantity: {{ ticket.quantity }}</p>
+          </div>
         </div>
         <div class="infos-vg-arr text-center d-flex justify-content-center">
-          <p class="fw-bold text-uppercase fs-4">total : 85.00€</p>
+          <p class="fw-bold text-uppercase fs-4">
+            Total : {{ calculateTotal() | currency }}
+          </p>
         </div>
       </div>
     </div>
@@ -73,7 +50,11 @@
           <input type="text" id="titulaire-carte" required />
         </form>
       </div>
-      <app-button name="Je valide mon paiement" varient="secondary" />
+      <app-button
+        type="submit"
+        name="Je valide mon paiement"
+        varient="secondary"
+      />
     </div>
   </div>
 </section>

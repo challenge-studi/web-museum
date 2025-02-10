@@ -62,6 +62,7 @@ export class AuthService {
     this.user = undefined;
     localStorage.removeItem('jwt');
     this.connected$.next(false);
+    console.log('tla?');
   }
 
   register(user: User, password: string): Observable<User> {
@@ -125,6 +126,7 @@ export class AuthService {
     const token = localStorage.getItem('jwt');
     if (token) {
       this.tokenJWT = token;
+      this.connected$.next(true);
     }
   }
 

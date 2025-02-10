@@ -3,30 +3,20 @@ import { PriceWithCount } from '../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import Commande from '../models/CommandInterface';
-
-type ResponseApiCommand = {
-  data: CommandApi[];
-  meta: Object; // meta qui contient la pagination si beaucoup de commande
-};
-
-type CommandApi = {
-  id: number;
-  documentId: string;
-  total_price: number;
-  order_date: string;
-  etat: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  tickets: Object[]; //TODO: à préciser plus tard
-};
+import Commande, {
+  CommandApi,
+  QuantityPerPrice,
+  ResponseApiCommand,
+} from '../models/CommandInterface';
+import { Exposition } from '../models/ExpositionInterface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommandService {
   commands: Commande[] = [];
+  current_command: QuantityPerPrice[] = [];
+  selectedExposition: Exposition | null = null;
 
   constructor(
     private readonly http: HttpClient,
@@ -43,6 +33,26 @@ export class CommandService {
 
     // en construction
     return true;
+  }
+
+  sendCommandToApi(
+    choiceTickets: QuantityPerPrice[],
+    selectedExposition: Exposition,
+  ): Observable<CommandApi> {
+    if (!this.auth.getUser()) {
+      throw new Error("L'utilisateur n'est pas connecté");
+    }
+
+    //pour faire persister les datas
+    this.current_command = choiceTickets;
+    this.selectedExposition = selectedExposition;
+
+    return this.http.post<CommandApi>('/api/send-command', choiceTickets).pipe(
+      map((response) => {
+        console.log('Nous allons traiter votre commande', response);
+        return response;
+      }),
+    );
   }
 
   getCommands(): Observable<Commande[]> {
