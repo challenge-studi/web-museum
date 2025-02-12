@@ -3,10 +3,13 @@ import { PriceWithCount } from '../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import Commande, {
+import {
+  Commande,
   CommandApi,
+  isCommandApi,
   QuantityPerPrice,
   ResponseApiCommand,
+  DetailCommand,
 } from '../models/CommandInterface';
 import { Exposition } from '../models/ExpositionInterface';
 
@@ -15,7 +18,9 @@ import { Exposition } from '../models/ExpositionInterface';
 })
 export class CommandService {
   commands: Commande[] = [];
-  current_command: QuantityPerPrice[] = [];
+  quantityPerPrice: QuantityPerPrice[] = [];
+  detailCommand: DetailCommand[] = [];
+  currentCommand: Commande | undefined = undefined;
   selectedExposition: Exposition | null = null;
   current_command_totalPrice: number = -1;
 
@@ -36,22 +41,39 @@ export class CommandService {
     return true;
   }
 
-  sendCommandToApi(
-    choiceTickets: QuantityPerPrice[],
-    selectedExposition: Exposition,
-  ): Observable<CommandApi> {
+  setDetailCommand(detailCommand: DetailCommand[]) {
+    this.detailCommand = detailCommand;
+    return this;
+  }
+
+  getDetailCommand() {
+    return this.detailCommand;
+  }
+
+  sendCommandToApi(choiceTickets: QuantityPerPrice[]): Observable<Commande> {
     if (!this.auth.getUser()) {
       throw new Error("L'utilisateur n'est pas connecté");
     }
 
     //pour faire persister les datas
-    this.current_command = choiceTickets;
-    this.selectedExposition = selectedExposition;
+    this.quantityPerPrice = choiceTickets; //modifier
 
-    return this.http.post<CommandApi>('/api/send-command', choiceTickets).pipe(
+    return this.http.post('/api/send-command', choiceTickets).pipe(
       map((response) => {
-        console.log('Nous allons traiter votre commande', response);
-        return response;
+        // vérification du type
+        if (!isCommandApi(response)) throw new Error('Data invalid');
+
+        // retourner la commande version local
+
+        const newCommand: Commande = {
+          id: response.id,
+          documentId: response.documentId,
+          total_price: response.total_price,
+          order_date: new Date(response.order_date),
+          status: response.etat,
+        };
+        this.currentCommand = newCommand;
+        return newCommand;
       }),
     );
   }
@@ -71,6 +93,7 @@ export class CommandService {
         listCommand = response.data.map((commandeApi) => {
           const command: Commande = {
             id: commandeApi.id,
+            documentId: commandeApi.documentId,
             total_price: commandeApi.total_price,
             order_date: new Date(commandeApi.order_date),
             status: commandeApi.etat,

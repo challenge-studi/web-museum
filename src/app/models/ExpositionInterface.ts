@@ -19,6 +19,12 @@ export interface ExpositionApi {
   publishedAt: string;
 }
 
+export function isExpositionApi(dataApi: unknown): dataApi is ExpositionApi {
+  if (dataApi && typeof dataApi === 'object' && 'documentId' in dataApi)
+    return true;
+  else return false;
+}
+
 export interface ResponseApiExposition {
   data: ExpositionApi[];
 }

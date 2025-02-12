@@ -22,14 +22,14 @@ export interface PriceApi {
   localizations: any[];
 }
 
-export interface ApiResponse {
-  data: PriceApi[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    };
-  };
-}
+// export interface ApiResponsePrice {
+//   data: PriceApi[];
+//   meta: {
+//     pagination: {
+//       page: number;
+//       pageSize: number;
+//       pageCount: number;
+//       total: number;
+//     };
+//   };
+// }

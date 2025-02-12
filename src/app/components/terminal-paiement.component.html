@@ -9,13 +9,13 @@
         <div class="infos d-flex text-center justify-content-between">
           <p>
             <strong>Exposition Sélectionnée:</strong>
-            {{ selectedExposition?.name }}
+            {{ detailCommand[0].expo.name }}
           </p>
         </div>
-        <div *ngFor="let ticket of current_command">
+        <div *ngFor="let ticket of detailCommand">
           <div class="infos d-flex text-center justify-content-between">
             <p>Price: {{ ticket.price }}</p>
-            <p>Quantity: {{ ticket.quantity }}</p>
+            <p>count: {{ ticket.count }}</p>
           </div>
         </div>
         <div class="infos-vg-arr text-center d-flex justify-content-center">

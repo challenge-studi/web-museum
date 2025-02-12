@@ -3,18 +3,21 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../../ux/button/button.component';
 import { CheckinTicketComponent } from '../../ux/checkin-ticket/checkin-ticket.component';
 import Price, {
-  ApiResponse,
+  PriceApi,
   PriceWithCount,
 } from '../../../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import {
   Exposition,
+  ExpositionApi,
   ResponseApiExposition,
 } from '../../../models/ExpositionInterface';
 
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Data, Router } from '@angular/router';
+import { ResponseApi } from '../../../models/ResponseApi';
+import { DetailCommand } from '../../../models/CommandInterface';
 
 @Component({
   selector: 'app-billetterie',
@@ -25,9 +28,8 @@ import { Router } from '@angular/router';
 export class BilletterieComponent {
   public listPrice: PriceWithCount[] = [];
   public totalPrice: number = 0;
-  private readonly apiUrl = '/api/prices';
   public expositions: Exposition[] | undefined;
-  public selectedExposition!: Exposition | null;
+  public selectedExposition: Exposition | null = null;
 
   constructor(
     private readonly http: HttpClient,
@@ -35,29 +37,33 @@ export class BilletterieComponent {
 
     private readonly commandService: CommandService,
   ) {
-    this.getPrices().subscribe((response: ApiResponse) => {
+    this.getPrices();
+    this.getExpositions();
+  }
+
+  getPrices() {
+    this.http.get('/api/prices').subscribe((response) => {
       console.log('Response from API:', response);
+
+      // vérifie la data
+      if (!this.isGetResponseApiValid<PriceApi[]>(response))
+        throw new Error('Type invalid');
 
       const prices = response.data;
 
       if (Array.isArray(prices)) {
-        console.log('Prices from API:', prices);
         this.listPrice = prices.map((price: Price) => ({ ...price, count: 0 }));
         console.log('Mapped prices:', this.listPrice);
       } else {
         console.error('Expected an array of prices but got:', prices);
       }
     });
-    this.getExpositions();
-  }
-  getPrices(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.apiUrl);
   }
 
   getExpositions() {
     return this.http.get('/api/expositions').subscribe({
       next: (response) => {
-        if (!this.isGetExpostionValid(response))
+        if (!this.isGetResponseApiValid<ExpositionApi[]>(response))
           throw new Error('Format Invalid');
 
         this.expositions = response.data.map((item) => {
@@ -73,8 +79,9 @@ export class BilletterieComponent {
       },
     });
   }
-  isGetExpostionValid(dataApi: unknown): dataApi is ResponseApiExposition {
-    if (dataApi && typeof dataApi == 'object' && 'data' in dataApi) {
+
+  isGetResponseApiValid<T>(dataApi: unknown): dataApi is ResponseApi<T> {
+    if (dataApi && typeof dataApi === 'object' && 'data' in dataApi) {
       return true;
     } else return false;
   }
@@ -106,25 +113,36 @@ export class BilletterieComponent {
       this.selectedExposition &&
       this.listPrice.some((price) => price.count > 0)
     ) {
-      const choiceTickets = this.listPrice
+      const detailCommand: DetailCommand[] = this.listPrice
         .filter((price) => price.count > 0)
-        .map((price) => ({
-          price: price.id,
-          quantity: price.count,
-          exposition: this.selectedExposition!.id,
-        }));
-
-      this.commandService
-        .sendCommandToApi(choiceTickets, this.selectedExposition)
-        .subscribe({
-          next: (response) => {
-            console.log(response);
-            this.router.navigate(['validation-commande']);
-          },
-          error: (err) => {
-            console.error("Erreur lors de l'envoi de la commande", err);
-          },
+        .map((item) => {
+          if (!this.selectedExposition)
+            throw new Error("L'exposition doit etre sélectionnée");
+          const theDetail: DetailCommand = {
+            ...item,
+            expo: this.selectedExposition,
+          };
+          return theDetail;
         });
+
+      // en envoie au service
+      this.commandService.setDetailCommand(detailCommand);
+
+      const choiceTickets = detailCommand.map((price) => ({
+        price: price.id,
+        quantity: price.count,
+        exposition: this.selectedExposition!.id,
+      }));
+
+      this.commandService.sendCommandToApi(choiceTickets).subscribe({
+        next: (response) => {
+          console.log(response);
+          this.router.navigate(['validation-commande']);
+        },
+        error: (err) => {
+          console.error("Erreur lors de l'envoi de la commande", err);
+        },
+      });
     } else {
       console.error('Veuillez sélectionner une exposition et des billets.');
     }

@@ -1,6 +1,12 @@
-export default interface Commande {
+import { Exposition } from './ExpositionInterface';
+import { PriceWithCount } from './PriceInterface';
+
+export type DetailCommand = PriceWithCount & { expo: Exposition };
+
+export interface Commande {
   id: number;
-  total_price: number;
+  documentId: string;
+  total_price: number | null;
   order_date: Date;
   status: string;
 }
@@ -30,4 +36,10 @@ export interface QuantityPerPrice {
   price: number;
   quantity: number;
   exposition: number;
+}
+
+export function isCommandApi(dataApi: unknown): dataApi is CommandApi {
+  if (dataApi && typeof dataApi === 'object' && 'documentId' in dataApi)
+    return true;
+  else return false;
 }

@@ -13,9 +13,12 @@ export const routes: Routes = [
   {
     path: 'billetterie',
     component: BilletterieComponent,
-    canActivate: [authGuard],
   },
   { path: 'auth', component: AuthComponent },
   { path: 'mesinfos', component: DashboardComponent },
-  { path: 'validation-commande', component: TerminalPaiementComponent },
+  {
+    path: 'validation-commande',
+    component: TerminalPaiementComponent,
+    canActivate: [authGuard],
+  },
 ];

@@ -10,6 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     return true; // Autorisé
   } else {
     router.navigate(['/auth']);
+    //router navigateByUrl('/auth');
     return false; // Bloqué, redirigé vers la page de connexion
   }
 };
