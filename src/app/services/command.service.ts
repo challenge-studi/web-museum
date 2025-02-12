@@ -17,6 +17,7 @@ export class CommandService {
   commands: Commande[] = [];
   current_command: QuantityPerPrice[] = [];
   selectedExposition: Exposition | null = null;
+  current_command_totalPrice: number = -1;
 
   constructor(
     private readonly http: HttpClient,

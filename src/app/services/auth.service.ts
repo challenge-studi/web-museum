@@ -110,9 +110,14 @@ export class AuthService {
     if (!this.tokenJWT) throw new Error('Jeton JWT absent');
   }
 
-  isResponseApiValide(dataApi: any): dataApi is ResponseApiLogin {
+  isResponseApiValide(dataApi: unknown): dataApi is ResponseApiLogin {
     // Vérification du type guard
-    if ('jwt' in dataApi && typeof dataApi.jwt === 'string') {
+    if (
+      dataApi &&
+      typeof dataApi == 'object' &&
+      'jwt' in dataApi &&
+      typeof dataApi.jwt === 'string'
+    ) {
       return true;
     } else return false;
   }
@@ -146,7 +151,7 @@ export class AuthService {
         passwordConfirmation: passwordConfirmation,
       })
       .pipe(
-        map((response: any) => {
+        map((response: unknown) => {
           if (!this.isResponseApiValide(response)) {
             throw new Error('Format de réponse invalide');
           }

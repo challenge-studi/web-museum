@@ -19,7 +19,6 @@ export class TerminalPaiementComponent {
     this.current_command = this.commandService.current_command;
     this.selectedExposition = this.commandService.selectedExposition;
   }
-
   calculateTotal(): number {
     return this.commandService.current_command.reduce(
       (total, ticket) => total + ticket.price * ticket.quantity,

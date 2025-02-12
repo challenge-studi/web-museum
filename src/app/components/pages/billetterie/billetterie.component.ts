@@ -7,9 +7,12 @@ import Price, {
   PriceWithCount,
 } from '../../../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Exposition } from '../../../models/ExpositionInterface';
-import expoData from '../../../mock/exposition.json';
+import { Observable, map } from 'rxjs';
+import {
+  Exposition,
+  ResponseApiExposition,
+} from '../../../models/ExpositionInterface';
+
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -23,16 +26,13 @@ export class BilletterieComponent {
   public listPrice: PriceWithCount[] = [];
   public totalPrice: number = 0;
   private readonly apiUrl = '/api/prices';
-  public expositions: Exposition[] = expoData.map((expo) => ({
-    ...expo,
-    departure_date: new Date(expo.departure_date),
-    end_date: new Date(expo.end_date),
-  }));
+  public expositions: Exposition[] | undefined;
   public selectedExposition!: Exposition | null;
 
   constructor(
     private readonly http: HttpClient,
     private readonly router: Router,
+
     private readonly commandService: CommandService,
   ) {
     this.getPrices().subscribe((response: ApiResponse) => {
@@ -48,9 +48,35 @@ export class BilletterieComponent {
         console.error('Expected an array of prices but got:', prices);
       }
     });
+    this.getExpositions();
   }
   getPrices(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(this.apiUrl);
+  }
+
+  getExpositions() {
+    return this.http.get('/api/expositions').subscribe({
+      next: (response) => {
+        if (!this.isGetExpostionValid(response))
+          throw new Error('Format Invalid');
+
+        this.expositions = response.data.map((item) => {
+          const newExposition: Exposition = {
+            id: item.id,
+            name: item.name,
+            description: item.description,
+            departure_date: new Date(item.departure_date),
+            end_date: new Date(item.end_date),
+          };
+          return newExposition;
+        });
+      },
+    });
+  }
+  isGetExpostionValid(dataApi: unknown): dataApi is ResponseApiExposition {
+    if (dataApi && typeof dataApi == 'object' && 'data' in dataApi) {
+      return true;
+    } else return false;
   }
 
   updateListPrice(id: number, newCount: number) {
@@ -83,7 +109,7 @@ export class BilletterieComponent {
       const choiceTickets = this.listPrice
         .filter((price) => price.count > 0)
         .map((price) => ({
-          price: price.price,
+          price: price.id,
           quantity: price.count,
           exposition: this.selectedExposition!.id,
         }));
@@ -91,7 +117,8 @@ export class BilletterieComponent {
       this.commandService
         .sendCommandToApi(choiceTickets, this.selectedExposition)
         .subscribe({
-          next: () => {
+          next: (response) => {
+            console.log(response);
             this.router.navigate(['validation-commande']);
           },
           error: (err) => {

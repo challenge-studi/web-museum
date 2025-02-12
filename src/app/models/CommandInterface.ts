@@ -14,7 +14,7 @@ export interface CommandApi {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  tickets: {
+  tickets?: {
     type: string;
     price: number;
     quantity: number;
