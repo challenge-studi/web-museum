@@ -43,3 +43,5 @@ export function isCommandApi(dataApi: unknown): dataApi is CommandApi {
     return true;
   else return false;
 }
+
+export type { Exposition };

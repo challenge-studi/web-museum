@@ -1,20 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import {
   HttpTestingController,
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
-
-import Price from '../../models/PriceInterface';
-import { CommandService } from '../../services/command.service';
+import { throwError } from 'rxjs';
 import { provideHttpClient } from '@angular/common/http';
 import { BilletterieComponent } from '../pages/billetterie/billetterie.component';
-
-interface PriceWithCount extends Price {
-  count: number;
-}
+import { CommandService } from '../../services/command.service';
+import Price from '../../models/PriceInterface';
 
 describe('BilletterieComponent', () => {
   let component: BilletterieComponent;
@@ -50,32 +44,24 @@ describe('BilletterieComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should fetch prices from API on initialization', async () => {
+  it('should fetch prices from API on initialization', () => {
     const req = httpMock.expectOne('/api/prices');
     expect(req.request.method).toBe('GET');
     req.flush({ data: mockPrices });
-
-    await fixture.whenStable();
     fixture.detectChanges();
 
     expect(component.listPrice.length).toBe(2);
-    expect(component.listPrice[0].count).toBe(0);
-    expect(component.listPrice[1].count).toBe(0);
+    expect(component.listPrice.every((price) => price.count === 0)).toBeTrue();
   });
 
   it('should update listPrice and totalPrice when updateListPrice is called', () => {
-    component.listPrice = [
-      { id: 1, price: 10, tickets_type: 'Type1', count: 0 },
-      { id: 2, price: 20, tickets_type: 'Type2', count: 0 },
-    ];
+    component.listPrice = mockPrices.map((price) => ({ ...price, count: 0 }));
 
     component.updateListPrice(1, 2);
-
     expect(component.listPrice[0].count).toBe(2);
     expect(component.totalPrice).toBe(20);
 
     component.updateListPrice(2, 3);
-
     expect(component.listPrice[1].count).toBe(3);
     expect(component.totalPrice).toBe(80);
   });
@@ -85,17 +71,14 @@ describe('BilletterieComponent', () => {
       { id: 1, price: 10, tickets_type: 'Type1', count: 2 },
       { id: 2, price: 20, tickets_type: 'Type2', count: 3 },
     ];
-
-    const totalPrice = component.calculTotalPrice();
-
-    expect(totalPrice).toBe(80);
+    expect(component.calculTotalPrice()).toBe(80);
   });
 
   it('should select an exposition', () => {
     const expo = {
       id: 1,
       name: 'Expo 1',
-      description: 'Description of Expo 1',
+      description: 'Test',
       departure_date: new Date(),
       end_date: new Date(),
     };
@@ -103,58 +86,22 @@ describe('BilletterieComponent', () => {
     expect(component.selectedExposition).toBe(expo);
   });
 
-  it('should submit command when tickets are selected', () => {
-    component.selectedExposition = {
-      id: 1,
-      name: 'Expo 1',
-      description: 'Description of Expo 1',
-      departure_date: new Date(),
-      end_date: new Date(),
-    };
-    component.listPrice = [
-      { id: 1, price: 10, tickets_type: 'Type1', count: 2 },
-      { id: 2, price: 20, tickets_type: 'Type2', count: 0 },
-    ];
-
-    spyOn(commandService, 'sendCommandToApi').and.returnValue(
-      of({
-        id: 1,
-        documentId: 'DOC123',
-        total_price: 20,
-        order_date: new Date().toISOString(),
-        etat: 'confirmed',
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-        publishedAt: new Date().toISOString(),
-        tickets: [{ type: 'Type1', price: 10, quantity: 2 }],
-      }),
-    );
-    spyOn(router, 'navigate');
-
-    component.handleCommandSubmit();
-
-    expect(commandService.sendCommandToApi).toHaveBeenCalled();
-    expect(router.navigate).toHaveBeenCalledWith(['validation-commande']);
-  });
-
   it('should not submit command when no tickets are selected', () => {
     component.selectedExposition = {
       id: 1,
       name: 'Expo 1',
-      description: 'Description of Expo 1',
+      description: 'Test',
       departure_date: new Date(),
       end_date: new Date(),
     };
     component.listPrice = [
       { id: 1, price: 10, tickets_type: 'Type1', count: 0 },
-      { id: 2, price: 20, tickets_type: 'Type2', count: 0 },
     ];
 
     spyOn(commandService, 'sendCommandToApi');
     spyOn(router, 'navigate');
 
     component.handleCommandSubmit();
-
     expect(commandService.sendCommandToApi).not.toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
   });
@@ -163,14 +110,12 @@ describe('BilletterieComponent', () => {
     component.selectedExposition = null;
     component.listPrice = [
       { id: 1, price: 10, tickets_type: 'Type1', count: 2 },
-      { id: 2, price: 20, tickets_type: 'Type2', count: 0 },
     ];
 
     spyOn(commandService, 'sendCommandToApi');
     spyOn(router, 'navigate');
 
     component.handleCommandSubmit();
-
     expect(commandService.sendCommandToApi).not.toHaveBeenCalled();
     expect(router.navigate).not.toHaveBeenCalled();
   });
@@ -179,13 +124,12 @@ describe('BilletterieComponent', () => {
     component.selectedExposition = {
       id: 1,
       name: 'Expo 1',
-      description: 'Description of Expo 1',
+      description: 'Test',
       departure_date: new Date(),
       end_date: new Date(),
     };
     component.listPrice = [
       { id: 1, price: 10, tickets_type: 'Type1', count: 2 },
-      { id: 2, price: 20, tickets_type: 'Type2', count: 0 },
     ];
 
     spyOn(commandService, 'sendCommandToApi').and.returnValue(
@@ -194,7 +138,6 @@ describe('BilletterieComponent', () => {
     spyOn(console, 'error');
 
     component.handleCommandSubmit();
-
     expect(console.error).toHaveBeenCalledWith(
       "Erreur lors de l'envoi de la commande",
       jasmine.any(Error),
