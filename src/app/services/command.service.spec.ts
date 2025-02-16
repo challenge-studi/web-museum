@@ -65,6 +65,8 @@ describe('CommandService', () => {
     };
 
     expect(await responsePromise).toEqual([expectedCommande]);
+
+    httpTesting.verify();
   });
 
   it('getCommand should raise an error if API sends bad format', async () => {
@@ -80,6 +82,8 @@ describe('CommandService', () => {
     req.flush('Salut les lapins');
 
     await expectAsync(responsePromise).toBeRejected();
+
+    httpTesting.verify();
   });
 
   it('getCommand should raise an error if user is not connected', () => {
@@ -115,5 +119,7 @@ describe('CommandService', () => {
     req.flush(GET_COMMAND.data[0]);
 
     expect(await responsePromise).toBeDefined();
+
+    httpTesting.verify();
   });
 });
