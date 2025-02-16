@@ -7,15 +7,10 @@ import Price, {
   PriceWithCount,
 } from '../../../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
-import {
-  Exposition,
-  ExpositionApi,
-  ResponseApiExposition,
-} from '../../../models/ExpositionInterface';
+import { Exposition, ExpositionApi } from '../../../models/ExpositionInterface';
 
 import { CommonModule } from '@angular/common';
-import { Data, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { ResponseApi } from '../../../models/ResponseApi';
 import { DetailCommand } from '../../../models/CommandInterface';
 
