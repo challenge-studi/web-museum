@@ -80,6 +80,7 @@ export class BilletterieComponent {
     });
   }
 
+  // TODO: déplacer dans les model
   isGetResponseApiValid<T>(dataApi: unknown): dataApi is ResponseApi<T> {
     if (dataApi && typeof dataApi === 'object' && 'data' in dataApi) {
       return true;
@@ -98,6 +99,7 @@ export class BilletterieComponent {
     this.totalPrice = this.calculTotalPrice();
     console.log('Updated listPrice:', this.listPrice);
   }
+  // idem, déplacer dans le service
   calculTotalPrice() {
     return this.listPrice.reduce(
       (sum, itemCurrent) => sum + itemCurrent.price * itemCurrent.count,

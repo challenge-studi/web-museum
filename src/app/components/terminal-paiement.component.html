@@ -9,7 +9,7 @@
         <div class="infos d-flex text-center justify-content-between">
           <p>
             <strong>Exposition Sélectionnée:</strong>
-            {{ detailCommand[0].expo.name }}
+            {{ detailCommand[0] && detailCommand[0].expo.name }}
           </p>
         </div>
         <div *ngFor="let ticket of detailCommand">

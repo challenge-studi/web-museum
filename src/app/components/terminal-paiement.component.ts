@@ -17,6 +17,8 @@ export class TerminalPaiementComponent {
   constructor(private readonly commandService: CommandService) {
     this.detailCommand = commandService.getDetailCommand();
   }
+
+  // déplacer dans le service commandService
   calculateTotal(): number {
     return this.commandService.detailCommand.reduce(
       (total, ticket) => total + ticket.price * ticket.count,
