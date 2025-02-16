@@ -97,4 +97,23 @@ describe('CommandService', () => {
   it('isResponseCommandeValide should return false if invalid format', () => {
     expect(service.isResponseCommandeValide('Une Connnerie')).toBe(false);
   });
+
+  it('sendCommandToApi should raise a error is user is not connected', () => {
+    expect(() => service.sendCommandToApi([])).toThrow();
+  });
+
+  it('sendCommandToApi shoud return the command', async () => {
+    Object.defineProperty(auth, 'user', { value: user });
+
+    let response$ = service.sendCommandToApi([
+      { price: 1, quantity: 1, exposition: 1 },
+    ]);
+    const responsePromise = firstValueFrom(response$);
+
+    const req = httpTesting.expectOne('/api/send-command', 'Send the command');
+
+    req.flush(GET_COMMAND.data[0]);
+
+    expect(await responsePromise).toBeDefined();
+  });
 });
