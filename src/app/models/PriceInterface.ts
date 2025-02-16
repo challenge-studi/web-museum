@@ -21,15 +21,3 @@ export interface PriceApi {
   locale: string;
   localizations: any[];
 }
-
-// export interface ApiResponsePrice {
-//   data: PriceApi[];
-//   meta: {
-//     pagination: {
-//       page: number;
-//       pageSize: number;
-//       pageCount: number;
-//       total: number;
-//     };
-//   };
-// }
