@@ -38,7 +38,7 @@
               <input
                 type="radio"
                 name="selectedExpo"
-                [value]="exposition"
+                [value]="exposition.id"
                 (change)="selectedExposition = exposition"
                 [checked]="selectedExposition?.id === exposition.id"
               />
@@ -46,7 +46,11 @@
             </label>
           </div>
           <div class="total">
-            <app-button name="commander" variant="secondary" />
+            <app-button
+              name="commander"
+              variant="secondary"
+              (click)="handleCommandSubmit()"
+            />
           </div>
         </form>
       </div>

@@ -1,4 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  fakeAsync,
+  TestBed,
+  tick,
+} from '@angular/core/testing';
 import { BilletterieComponent } from './billetterie.component';
 import { provideHttpClient } from '@angular/common/http';
 import {
@@ -6,6 +11,7 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import Price from '../../../models/PriceInterface';
+import GET_EXPOSITIONS from '../../../mock/expositions.json';
 
 interface PriceWithCount extends Price {
   count: number;
@@ -43,6 +49,9 @@ describe('BilletterieComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    httpMock.expectOne('/api/expositions', 'get exposition on constructor');
+    httpMock.expectOne('/api/prices', 'get price on constructor');
+    httpMock.verify();
   });
 
   it('should fetch prices from API on initialization', async () => {
@@ -105,4 +114,14 @@ describe('BilletterieComponent', () => {
 
     expect(totalPrice).toBe(80);
   });
+
+  it('getExpositions shoud affected the property exposition', fakeAsync(() => {
+    let req = httpMock.expectOne('/api/expositions', 'get exposition');
+
+    req.flush(GET_EXPOSITIONS);
+
+    tick(); // tic tac
+
+    expect(component.expositions).toHaveSize(4);
+  }));
 });

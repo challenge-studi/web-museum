@@ -3,30 +3,25 @@ import { PriceWithCount } from '../models/PriceInterface';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import Commande from '../models/CommandInterface';
-
-type ResponseApiCommand = {
-  data: CommandApi[];
-  meta: Object; // meta qui contient la pagination si beaucoup de commande
-};
-
-type CommandApi = {
-  id: number;
-  documentId: string;
-  total_price: number;
-  order_date: string;
-  etat: string;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
-  tickets: Object[]; //TODO: à préciser plus tard
-};
+import {
+  Commande,
+  isCommandApi,
+  QuantityPerPrice,
+  ResponseApiCommand,
+  DetailCommand,
+} from '../models/CommandInterface';
+import { Exposition } from '../models/ExpositionInterface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommandService {
   commands: Commande[] = [];
+  quantityPerPrice: QuantityPerPrice[] = [];
+  detailCommand: DetailCommand[] = [];
+  currentCommand: Commande | undefined = undefined;
+  selectedExposition: Exposition | null = null;
+  current_command_totalPrice: number = -1;
 
   constructor(
     private readonly http: HttpClient,
@@ -45,6 +40,43 @@ export class CommandService {
     return true;
   }
 
+  setDetailCommand(detailCommand: DetailCommand[]) {
+    this.detailCommand = detailCommand;
+    return this;
+  }
+
+  getDetailCommand() {
+    return this.detailCommand;
+  }
+
+  sendCommandToApi(choiceTickets: QuantityPerPrice[]): Observable<Commande> {
+    if (!this.auth.getUser()) {
+      throw new Error("L'utilisateur n'est pas connecté");
+    }
+
+    //pour faire persister les datas
+    this.quantityPerPrice = choiceTickets; //modifier
+
+    return this.http.post('/api/send-command', choiceTickets).pipe(
+      map((response) => {
+        // vérification du type
+        if (!isCommandApi(response)) throw new Error('Data invalid');
+
+        // retourner la commande version local
+
+        const newCommand: Commande = {
+          id: response.id,
+          documentId: response.documentId,
+          total_price: response.total_price,
+          order_date: new Date(response.order_date),
+          status: response.etat,
+        };
+        this.currentCommand = newCommand;
+        return newCommand;
+      }),
+    );
+  }
+
   getCommands(): Observable<Commande[]> {
     if (!this.auth.getUser())
       throw new Error("L'utilisateur n'est pas connecté");
@@ -60,6 +92,7 @@ export class CommandService {
         listCommand = response.data.map((commandeApi) => {
           const command: Commande = {
             id: commandeApi.id,
+            documentId: commandeApi.documentId,
             total_price: commandeApi.total_price,
             order_date: new Date(commandeApi.order_date),
             status: commandeApi.etat,

@@ -1,4 +1,4 @@
-import { TerminalPaiementComponent } from './components/pages/feature/terminal-paiement/terminal-paiement.component';
+import { TerminalPaiementComponent } from './components/terminal-paiement.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/pages/home/home.component';
 import { PresentationComponent } from './components/pages/presentation/presentation.component';
@@ -13,9 +13,12 @@ export const routes: Routes = [
   {
     path: 'billetterie',
     component: BilletterieComponent,
-    canActivate: [authGuard],
   },
   { path: 'auth', component: AuthComponent },
   { path: 'mesinfos', component: DashboardComponent },
-  { path: 'validation-commande', component: TerminalPaiementComponent },
+  {
+    path: 'validation-commande',
+    component: TerminalPaiementComponent,
+    canActivate: [authGuard],
+  },
 ];

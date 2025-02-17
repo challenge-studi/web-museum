@@ -1,0 +1,56 @@
+{
+  "data": [
+    {
+      "id": 3,
+      "documentId": "f0o47yal70jw81a1m7y8gl07",
+      "name": "Trésors de l'Égypte Ancienne",
+      "description": "Découvrez les mystères et les merveilles de l'Égypte ancienne à travers des artefacts rares et des récits fascinants.",
+      "departure_date": "2025-03-01",
+      "end_date": "2025-03-31",
+      "createdAt": "2025-02-10T14:23:29.333Z",
+      "updatedAt": "2025-02-10T14:23:29.333Z",
+      "publishedAt": "2025-02-10T14:23:29.317Z"
+    },
+    {
+      "id": 4,
+      "documentId": "ogvyqo5jnqmybp0wwf5rzihb",
+      "name": "Maîtres de la Peinture Moderne",
+      "description": "Explorez les œuvres des plus grands maîtres de la peinture moderne, de Picasso à Pollock, et plongez dans l'art au XXe siècle.",
+      "departure_date": "2025-04-01",
+      "end_date": "2025-04-30",
+      "createdAt": "2025-02-10T14:24:10.120Z",
+      "updatedAt": "2025-02-10T14:24:10.120Z",
+      "publishedAt": "2025-02-10T14:24:10.108Z"
+    },
+    {
+      "id": 5,
+      "documentId": "wpdgko2ehd9jcnvx51t2dj0v",
+      "name": "Sculptures Contemporaines",
+      "description": "Admirez les œuvres innovantes et expressives des sculpteurs contemporains, qui repoussent les limites de la forme et de la matière.",
+      "departure_date": "2025-05-01",
+      "end_date": "2025-05-31",
+      "createdAt": "2025-02-10T14:25:10.448Z",
+      "updatedAt": "2025-02-10T14:25:10.448Z",
+      "publishedAt": "2025-02-10T14:25:10.438Z"
+    },
+    {
+      "id": 6,
+      "documentId": "co9r2bt4oli9ga7qua37mffc",
+      "name": "Art Numérique et Réalité Virtuelle",
+      "description": "Explorez les frontières de l'art numérique, où les artistes utilisent la technologie pour créer des expériences immersives et innovantes.",
+      "departure_date": "2025-07-01",
+      "end_date": "2025-07-31",
+      "createdAt": "2025-02-10T14:25:53.161Z",
+      "updatedAt": "2025-02-10T14:25:53.161Z",
+      "publishedAt": "2025-02-10T14:25:53.155Z"
+    }
+  ],
+  "meta": {
+    "pagination": {
+      "page": 1,
+      "pageSize": 25,
+      "pageCount": 1,
+      "total": 4
+    }
+  }
+}

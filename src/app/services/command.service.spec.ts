@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { CommandService } from './command.service';
 import { provideHttpClient } from '@angular/common/http';
 import {
@@ -7,11 +6,10 @@ import {
   provideHttpClientTesting,
 } from '@angular/common/http/testing';
 import GET_COMMAND from '../mock/commandes.json';
+import { Commande, CommandApi } from '../models/CommandInterface';
 import User from '../models/UserInterface';
 import { AuthService } from './auth.service';
-import { devOnlyGuardedExpression } from '@angular/compiler';
 import { firstValueFrom } from 'rxjs';
-import Commande from '../models/CommandInterface';
 
 describe('CommandService', () => {
   let service: CommandService;
@@ -42,53 +40,86 @@ describe('CommandService', () => {
     Object.defineProperty(auth, 'user', { value: user });
 
     let response$ = service.getCommands();
-
     const responsePromise = firstValueFrom(response$);
-
     let req = httpTesting.expectOne(() => true, 'GET command');
 
-    let command: Commande = {
+    let commandApi: CommandApi = {
       id: 3,
+      documentId: 'XYZ789',
+      total_price: 42,
+      order_date: '2025-02-02T00:00:00Z',
+      etat: 'En cours',
+      createdAt: '2025-02-01T10:00:00Z',
+      updatedAt: '2025-02-01T12:00:00Z',
+      publishedAt: '2025-02-01T12:00:00Z',
+    };
+
+    req.flush({ data: [commandApi], meta: {} });
+
+    const expectedCommande: Commande = {
+      id: 3,
+      documentId: 'XYZ789',
       total_price: 42,
       order_date: new Date('2025-02-02'),
       status: 'En cours',
     };
 
-    req.flush(GET_COMMAND);
+    expect(await responsePromise).toEqual([expectedCommande]);
 
-    expect(await responsePromise).toEqual([command]);
+    httpTesting.verify();
   });
 
-  it('getCommand should raise a error if api send bad format', async () => {
+  it('getCommand should raise an error if API sends bad format', async () => {
     Object.defineProperty(auth, 'user', { value: user });
 
     let response$ = service.getCommands();
-
     const responsePromise = firstValueFrom(response$);
 
     let req = httpTesting.expectOne(
       () => true,
       'GET command with invalid format',
     );
+    req.flush('Salut les lapins');
 
-    req.flush('Salut les lapin');
+    await expectAsync(responsePromise).toBeRejected();
 
-    responsePromise.catch((error) => expect(error).toBeDefined);
+    httpTesting.verify();
   });
 
-  it('get command shoud raise a error if user is not connected', () => {
+  it('getCommand should raise an error if user is not connected', () => {
     expect(() => service.getCommands()).toThrow();
   });
 
-  it('send command ( to modified )', () => {
+  it('send command (to be modified)', () => {
     expect(service.validateCommand([], 2)).toBe(true);
   });
 
-  it('isResponseValide shoud return true', () => {
+  it('isResponseValide should return true', () => {
     expect(service.isResponseCommandeValide(GET_COMMAND)).toBe(true);
   });
 
   it('isResponseCommandeValide should return false if invalid format', () => {
     expect(service.isResponseCommandeValide('Une Connnerie')).toBe(false);
+  });
+
+  it('sendCommandToApi should raise a error is user is not connected', () => {
+    expect(() => service.sendCommandToApi([])).toThrow();
+  });
+
+  it('sendCommandToApi shoud return the command', async () => {
+    Object.defineProperty(auth, 'user', { value: user });
+
+    let response$ = service.sendCommandToApi([
+      { price: 1, quantity: 1, exposition: 1 },
+    ]);
+    const responsePromise = firstValueFrom(response$);
+
+    const req = httpTesting.expectOne('/api/send-command', 'Send the command');
+
+    req.flush(GET_COMMAND.data[0]);
+
+    expect(await responsePromise).toBeDefined();
+
+    httpTesting.verify();
   });
 });
